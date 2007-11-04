@@ -57,14 +57,16 @@ IF( QT4_DBUSXML_2CPP )
 	SET( QT4_WRAP_DBUSXML "YES" )
 ENDIF( QT4_DBUSXML_2CPP )
 
-MACRO( QT4_WRAP_DBUSXML outfiles infile classname )
-	GET_FILENAME_COMPONENT( outfile ${infile} NAME_WE )
-	GET_FILENAME_COMPONENT( it ${infile} ABSOLUTE )
-	SET( proxy ${outfile}_interface )
-	SET( outfile ${CMAKE_CURRENT_BINARY_DIR}/${outfile}_interface.cpp )
-	ADD_CUSTOM_COMMAND(OUTPUT ${outfile}
-		COMMAND ${QT4_DBUSXML_2CPP}
-		ARGS -c ${classname} -p "${proxy}.h:${proxy}.cpp" -m ${it}
-		DEPENDS ${infile} )
-	SET( ${outfiles} ${outfile} )
+MACRO( QT4_WRAP_DBUSXML outfiles classname )
+	FOREACH( it ${ARGN} )
+		GET_FILENAME_COMPONENT( outfile ${it} NAME_WE )
+		GET_FILENAME_COMPONENT( in ${it} ABSOLUTE )
+		SET( proxy ${outfile}_interface )
+		SET( outfile ${CMAKE_CURRENT_BINARY_DIR}/${outfile}_interface.cpp )
+		ADD_CUSTOM_COMMAND(OUTPUT ${outfile}
+			COMMAND ${QT4_DBUSXML_2CPP}
+			ARGS -c ${classname} -p "${proxy}.h:${proxy}.cpp" -m ${in}
+			DEPENDS ${infile} )
+		SET( ${outfiles} "${${outfiles}}" ${outfile} )
+	ENDFOREACH( it )
 ENDMACRO( QT4_WRAP_DBUSXML )
