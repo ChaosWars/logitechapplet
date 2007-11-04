@@ -5,6 +5,7 @@ FIND_PATH( DBUS_INCLUDE_LIB_DIR dbus/dbus-arch-deps.h PATHS /usr/lib/dbus-1.0/in
 FIND_LIBRARY( DBUS_LIBRARY NAMES dbus-1 PATHS /usr/lib /usr/local/lib )
 FIND_LIBRARY( DBUS_GLIB_LIBRARY NAMES dbus-glib-1 PATHS /usr/lib /usr/local/lib )
 FIND_LIBRARY( DBUS_QT4_LIBRARY NAMES QtDBus PATHS /usr/lib /usr/local/lib /opt/qt4/lib )
+FIND_PROGRAM( QT4_DBUSXML_2CPP NAMES qdbusxml2cpp PATHS /usr/bin/ /usr/local/bin /opt/qt4 )
 
 IF( DBUS_INCLUDE_DIR AND DBUS_INCLUDE_LIB_DIR AND DBUS_LIBRARY )
    SET( DBUS_FOUND TRUE )
@@ -51,3 +52,19 @@ ELSE( DBUS_FOUND )
       MESSAGE( FATAL_ERROR "Could not find dbus" )
    ENDIF( dbus_FIND_REQUIRED )
 ENDIF( DBUS_FOUND )
+
+IF( QT4_DBUSXML_2CPP )
+	SET( QT4_WRAP_DBUSXML "YES" )
+ENDIF( QT4_DBUSXML_2CPP )
+
+MACRO( QT4_WRAP_DBUSXML outfiles infile classname )
+	GET_FILENAME_COMPONENT( outfile ${infile} NAME_WE )
+	GET_FILENAME_COMPONENT( it ${infile} ABSOLUTE )
+	SET( proxy ${outfile}_interface )
+	SET( outfile ${CMAKE_CURRENT_BINARY_DIR}/${outfile}_interface.cpp )
+	ADD_CUSTOM_COMMAND(OUTPUT ${outfile}
+		COMMAND ${QT4_DBUSXML_2CPP}
+		ARGS -c ${classname} -p "${proxy}.h:${proxy}.cpp" -m ${it}
+		DEPENDS ${infile} )
+	SET( ${outfiles} ${outfile} )
+ENDMACRO( QT4_WRAP_DBUSXML )

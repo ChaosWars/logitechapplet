@@ -1,7 +1,24 @@
 <!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
 		  "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 <node name="/org/freedesktop/LogitechDaemon">
-	<interface name="com.freedesktop.LogitechDaemon.Interface">
-		<method name="setKBBrightness">
+	<interface name="org.freedesktop.LogitechDaemon.Interface">
+		<signal name="setLCDBrightness" >
+			<arg name="brightness" type="d" direction="out" />
+		</signal>
+		<signal name="setLCDContrast">
+			<arg name="contrast" type="d" direction="out" />
+		</signal>
+		<signal name="setKBBrightness">
+			<arg name="brightness" type="d" direction="out" />
+		</signal>
+		<signal name="LCDBrightnessSet" >
+			<arg name="brightness" type="d" direction="in" />
+		</signal>
+		<signal name="LCDContrastSet">
+			<arg name="contrast" type="d" direction="in" />
+		</signal>
+		<signal name="KBBrightnessSet">
+			<arg name="brightness" type="d" direction="in" />
+		</signal>
 	</interface>
 </node>
