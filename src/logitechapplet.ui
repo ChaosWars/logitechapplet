@@ -12,6 +12,9 @@
   <property name="windowTitle" >
    <string>Logitech Applet</string>
   </property>
+  <property name="windowIcon" >
+   <iconset resource="applet.qrc" >:/pics/logitech_logo.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget" >
    <layout class="QGridLayout" >
     <item row="0" column="0" >
@@ -148,23 +151,8 @@
    </property>
   </action>
  </widget>
- <resources/>
- <connections>
-  <connection>
-   <sender>action_Exit</sender>
-   <signal>triggered()</signal>
-   <receiver>LogitechApplet</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>265</x>
-     <y>117</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <resources>
+  <include location="applet.qrc" />
+ </resources>
+ <connections/>
 </ui>

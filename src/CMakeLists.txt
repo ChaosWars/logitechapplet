@@ -5,10 +5,12 @@ INCLUDE_DIRECTORIES( ${QT_INCLUDES}
 					${QT_GUI_INCLUDE_DIR}
 					${CMAKE_CURRENT_BINARY_DIR}
 					${CMAKE_CURRENT_SOURCE_DIR} )
-SET( SRC main.cpp logitechapplet.cpp applet_interface.cpp )
+SET( SRC main.cpp logitechapplet.cpp )
 SET( UI_SRC logitechapplet.ui )
+QT4_WRAP_DBUSXML( QDBUSCPP applet.xml LogitechDaemonInterface )
+QT4_ADD_RESOURCES( QRC applet.qrc )
 QT4_WRAP_UI( UI_SRC_H ${UI_SRC} )
-QT4_AUTOMOC( ${SRC} )
+QT4_AUTOMOC( ${SRC} ${QDBUSCPP} )
 ADD_DEFINITIONS( ${QT_DEFINITIONS} )
-ADD_EXECUTABLE( logitechapplet ${SRC} ${UI_SRC_H} )
+ADD_EXECUTABLE( logitechapplet ${SRC} ${QDBUSCPP} ${UI_SRC_H} ${QRC} )
 TARGET_LINK_LIBRARIES( logitechapplet ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${DBUS_QT4_LIBRARY} )

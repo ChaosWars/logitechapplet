@@ -21,7 +21,7 @@
 #define _LOGITECHAPPLET_H_
 
 #include <QMainWindow>
-#include <QRadioButton>
+#include <QSystemTrayIcon>
 #include "ui_logitechapplet.h"
 
 class LogitechDaemonInterface;
@@ -36,9 +36,11 @@ class LogitechApplet : public QMainWindow, Ui::LogitechApplet
 
 	protected:
 		void timerEvent( QTimerEvent *event );
+		void closeEvent( QCloseEvent *event );
 
 	private:
 		LogitechDaemonInterface *interface;
+		QSystemTrayIcon *systrayicon;
 		void setEnabled( bool enabled );
 
 	private Q_SLOTS:
@@ -46,6 +48,8 @@ class LogitechApplet : public QMainWindow, Ui::LogitechApplet
 		void KBBrightnessSet();
 		void LCDBrightnessSet();
 		void LCDContrastSet();
+		void shutdown();
+		void systemTrayClicked( QSystemTrayIcon::ActivationReason );
 
 	Q_SIGNALS:
 		void setKBBrightness( qint32 brightness );

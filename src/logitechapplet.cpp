@@ -17,12 +17,21 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#include <QCloseEvent>
 #include "applet_interface.h"
 #include "logitechapplet.h"
 
+bool ok_to_close;
+
 LogitechApplet::LogitechApplet()
 {
+	ok_to_close = false;
 	setupUi( this );
+	systrayicon = new QSystemTrayIcon( QIcon( ":/pics/logitech_logo.png" ), this );
+	systrayicon->setContextMenu( menu_Action );
+	systrayicon->show();
+	connect( systrayicon, SIGNAL( activated ( QSystemTrayIcon::ActivationReason ) ), this, SLOT( systemTrayClicked( QSystemTrayIcon::ActivationReason ) ) );
+	connect( action_Exit, SIGNAL( triggered() ), this, SLOT( shutdown() ) );
 	connect( LCDContrastLow, SIGNAL( toggled( bool ) ), this, SLOT( LCDContrastSet() ) );
 	connect( LCDContrastMedium, SIGNAL( toggled( bool ) ), this, SLOT( LCDContrastSet() ) );
 	connect( LCDContrastHigh, SIGNAL( toggled( bool ) ), this, SLOT( LCDContrastSet() ) );
@@ -39,6 +48,8 @@ LogitechApplet::LogitechApplet()
 
 LogitechApplet::~LogitechApplet()
 {
+	delete systrayicon;
+	delete interface;
 }
 
 void LogitechApplet::timerEvent( QTimerEvent *event )
@@ -48,6 +59,33 @@ void LogitechApplet::timerEvent( QTimerEvent *event )
 		setEnabled( true );
 	else
 		setEnabled( false );
+}
+
+void LogitechApplet::closeEvent( QCloseEvent *event )
+{
+	if( ok_to_close ){
+		event->accept();
+	}else{
+		event->ignore();
+		hide();
+	}
+}
+
+void LogitechApplet::systemTrayClicked( QSystemTrayIcon::ActivationReason reason )
+{
+	if( reason != QSystemTrayIcon::Trigger )
+		return;
+	
+	if( isVisible() )
+		hide();
+	else
+		show();
+}
+
+void LogitechApplet::shutdown()
+{
+	ok_to_close = true;
+	close();
 }
 
 void LogitechApplet::setEnabled( bool enabled )
