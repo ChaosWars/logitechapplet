@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name= Logitech Applet
+Icon=Logitech_logo.png
+Exec=logitechapplet
+Comment=Control applet for logitechdaemon
+Categories=Application;Settings;

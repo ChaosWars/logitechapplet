@@ -18,7 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 #include <QCloseEvent>
-#include "applet_interface.h"
+#include "appletinterface.h"
 #include "logitechapplet.h"
 
 bool ok_to_close;
@@ -41,7 +41,7 @@ LogitechApplet::LogitechApplet()
 	connect( KeyboardBrightnessDark, SIGNAL( toggled( bool ) ), this, SLOT( KBBrightnessSet() ) );
 	connect( KeyboardBrightnessMedium, SIGNAL( toggled( bool ) ), this, SLOT( KBBrightnessSet() ) );
 	connect( KeyboardBrightnessBright, SIGNAL( toggled( bool ) ), this, SLOT( KBBrightnessSet() ) );
-	interface = new LogitechDaemonInterface( "org.freedesktop.LogitechDaemon", "/org/freedesktop/LogitechDaemon", QDBusConnection::systemBus(), this );
+	interface = new OrgFreedesktopLogitechDaemonInterface( "org.freedesktop.LogitechDaemon", "/org/freedesktop/LogitechDaemon", QDBusConnection::systemBus(), this );
 	startTimer( 1000 );
 	
 }
