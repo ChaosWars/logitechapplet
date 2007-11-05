@@ -3,10 +3,10 @@
 <KDevPrjSession>
  <DocsAndViews NumberOfDocuments="6" >
   <Doc0 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/logitechapplet.cpp" >
-   <View0 Encoding="" line="169" Type="Source" />
+   <View0 Encoding="" line="43" Type="Source" />
   </Doc0>
   <Doc1 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/logitechapplet.h" >
-   <View0 Encoding="" line="50" Type="Source" />
+   <View0 Encoding="" line="41" Type="Source" />
   </Doc1>
   <Doc2 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/applet.qrc" >
    <View0 Encoding="" line="0" Type="Source" />
@@ -18,7 +18,7 @@
    <View0 Encoding="" line="3" Type="Source" />
   </Doc4>
   <Doc5 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/cmake/FindDBUS.cmake" >
-   <View0 Encoding="" line="60" Type="Source" />
+   <View0 Encoding="" line="1" Type="Source" />
   </Doc5>
  </DocsAndViews>
  <pluginList>

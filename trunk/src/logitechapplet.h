@@ -24,7 +24,7 @@
 #include <QSystemTrayIcon>
 #include "ui_logitechapplet.h"
 
-class LogitechDaemonInterface;
+class OrgFreedesktopLogitechDaemonInterface;
 
 class LogitechApplet : public QMainWindow, Ui::LogitechApplet
 {
@@ -39,7 +39,7 @@ class LogitechApplet : public QMainWindow, Ui::LogitechApplet
 		void closeEvent( QCloseEvent *event );
 
 	private:
-		LogitechDaemonInterface *interface;
+		OrgFreedesktopLogitechDaemonInterface *interface;
 		QSystemTrayIcon *systrayicon;
 		void setEnabled( bool enabled );
 
