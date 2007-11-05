@@ -8,7 +8,7 @@ INCLUDE_DIRECTORIES( ${QT_INCLUDES}
 SET( SRC main.cpp logitechapplet.cpp )
 SET( UI_SRC logitechapplet.ui )
 SET( QDBUSXML applet.xml )
-QT4_WRAP_DBUSXML( QDBUSSRC LogitechDaemonInterface ${QDBUSXML} )
+QT4_WRAP_DBUSXML_PROXY( QDBUSSRC LogitechDaemonInterface ${QDBUSXML} )
 QT4_ADD_RESOURCES( QRC applet.qrc )
 QT4_WRAP_UI( UI_SRC_H ${UI_SRC} )
 QT4_AUTOMOC( ${QDBUSSRC} ${SRC} ${UI_SRC} ${QRC} )

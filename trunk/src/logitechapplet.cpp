@@ -41,7 +41,7 @@ LogitechApplet::LogitechApplet()
 	connect( KeyboardBrightnessDark, SIGNAL( toggled( bool ) ), this, SLOT( KBBrightnessSet() ) );
 	connect( KeyboardBrightnessMedium, SIGNAL( toggled( bool ) ), this, SLOT( KBBrightnessSet() ) );
 	connect( KeyboardBrightnessBright, SIGNAL( toggled( bool ) ), this, SLOT( KBBrightnessSet() ) );
-	interface = new LogitechDaemonInterface( "org.freedesktop.LogitechDaemon", "/Main", QDBusConnection::systemBus(), this );
+	interface = new LogitechDaemonInterface( "org.freedesktop.LogitechDaemon", "/org/freedesktop/LogitechDaemon", QDBusConnection::systemBus(), this );
 	startTimer( 1000 );
 	
 }
@@ -92,7 +92,7 @@ void LogitechApplet::setEnabled( bool enabled )
 {
 	LCDBrightnessDark->setEnabled( enabled );
 	LCDBrightnessMedium->setEnabled( enabled );
-	LCDBrightnessBright-> setEnabled( enabled );
+	LCDBrightnessBright->setEnabled( enabled );
 	LCDContrastLow->setEnabled( enabled );
 	LCDContrastMedium->setEnabled( enabled );
 	LCDContrastHigh->setEnabled( enabled );
@@ -103,14 +103,86 @@ void LogitechApplet::setEnabled( bool enabled )
 
 void LogitechApplet::KBBrightnessSet()
 {
+	if( KeyboardBrightnessDark->isChecked() )
+		interface->set_kb_brightness( 0 );
+	else if( KeyboardBrightnessMedium->isChecked() )
+		interface->set_kb_brightness( 1 );
+	else if( KeyboardBrightnessBright->isChecked() )
+		interface->set_kb_brightness( 2 );
 }
 
 void LogitechApplet::LCDBrightnessSet()
 {
+	if( LCDBrightnessDark->isChecked() )
+		interface->set_lcd_brightness( 0 );
+	else if( LCDBrightnessMedium->isChecked() )
+		interface->set_lcd_brightness( 1 );
+	else if( LCDBrightnessBright->isChecked() )
+		interface->set_lcd_brightness( 2 );
 }
 
 void LogitechApplet::LCDContrastSet()
 {
+	if( LCDContrastLow->isChecked() )
+		interface->set_lcd_contrast( 0 );
+	else if( LCDContrastMedium->isChecked() )
+		interface->set_lcd_contrast( 1 );
+	else if( LCDContrastHigh->isChecked() )
+		interface->set_lcd_contrast( 2 );
+}
+
+void LogitechApplet::kb_brightness_set( int brightness )
+{
+	switch( brightness ){
+		case 0:
+			KeyboardBrightnessDark->setChecked( true );
+			break;
+		case 1:
+			KeyboardBrightnessMedium->setChecked( true );
+			break;
+		case 2:
+			KeyboardBrightnessBright->setChecked( true );
+			break;
+		default:
+			KeyboardBrightnessDark->setChecked( true );
+			break;
+	}
+}
+
+void LogitechApplet::lcd_brightness_set( int brightness )
+{
+	switch( brightness ){
+		case 0:
+			LCDBrightnessDark->setChecked( true );
+			break;
+		case 1:
+			LCDBrightnessMedium->setChecked( true );
+			break;
+		case 2:
+			LCDBrightnessBright->setChecked( true );
+			break;
+		default:
+			LCDBrightnessDark->setChecked( true );
+			break;
+	}
+}
+
+void LogitechApplet::lcd_contrast_set( int contrast )
+{
+	switch( contrast ){
+		case 0:
+			LCDContrastLow->setChecked( true );
+			break;
+		case 1:
+			LCDContrastMedium->setChecked( true );
+			break;
+		case 2:
+			LCDContrastHigh->setChecked( true );
+			break;
+		default:
+			LCDContrastLow->setChecked( true );
+			break;
+	}
 }
 
 #include "logitechapplet.moc"

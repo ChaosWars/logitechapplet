@@ -48,13 +48,11 @@ class LogitechApplet : public QMainWindow, Ui::LogitechApplet
 		void KBBrightnessSet();
 		void LCDBrightnessSet();
 		void LCDContrastSet();
+		void kb_brightness_set( int brightness );
+		void lcd_brightness_set( int brightness );
+		void lcd_contrast_set( int contrast );
 		void shutdown();
 		void systemTrayClicked( QSystemTrayIcon::ActivationReason );
-
-	Q_SIGNALS:
-		void setKBBrightness( qint32 brightness );
-		void setLCDBrightness( qint32 brightness );
-		void setLCDContrast( qint32 contrast );
 };
 
 #endif //	_LOGITECHAPPLET_H_
