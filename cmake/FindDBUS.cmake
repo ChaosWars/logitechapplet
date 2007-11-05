@@ -57,7 +57,21 @@ IF( QT4_DBUSXML_2CPP )
 	SET( QT4_WRAP_DBUSXML "YES" )
 ENDIF( QT4_DBUSXML_2CPP )
 
-MACRO( QT4_WRAP_DBUSXML outfiles classname )
+MACRO( QT4_WRAP_DBUSXML_ADAPTOR outfiles classname )
+	FOREACH( it ${ARGN} )
+		GET_FILENAME_COMPONENT( outfile ${it} NAME_WE )
+		GET_FILENAME_COMPONENT( in ${it} ABSOLUTE )
+		SET( adaptor ${outfile}_adaptor )
+		SET( outfile ${CMAKE_CURRENT_BINARY_DIR}/${outfile}_adaptor.cpp )
+		ADD_CUSTOM_COMMAND(OUTPUT ${outfile}
+			COMMAND ${QT4_DBUSXML_2CPP}
+			ARGS -c ${classname} -a "${adaptor}.h:${adaptor}.cpp" -m ${in}
+			DEPENDS ${infile} )
+		SET( ${outfiles} "${${outfiles}}" ${outfile} )
+	ENDFOREACH( it )
+ENDMACRO( QT4_WRAP_DBUSXML_ADAPTOR )
+
+MACRO( QT4_WRAP_DBUSXML_PROXY outfiles classname )
 	FOREACH( it ${ARGN} )
 		GET_FILENAME_COMPONENT( outfile ${it} NAME_WE )
 		GET_FILENAME_COMPONENT( in ${it} ABSOLUTE )
@@ -69,4 +83,4 @@ MACRO( QT4_WRAP_DBUSXML outfiles classname )
 			DEPENDS ${infile} )
 		SET( ${outfiles} "${${outfiles}}" ${outfile} )
 	ENDFOREACH( it )
-ENDMACRO( QT4_WRAP_DBUSXML )
+ENDMACRO( QT4_WRAP_DBUSXML_PROXY )

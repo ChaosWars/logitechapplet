@@ -3,8 +3,6 @@ CMakeLists.txt
 cmake
 src
 src/CMakeLists.txt
-src/applet_interface.cpp
-src/applet_interface.h
 src/logitechapplet.cpp
 src/logitechapplet.h
 src/main.cpp
