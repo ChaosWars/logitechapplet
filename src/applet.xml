@@ -11,6 +11,8 @@
 		<method name="set_kb_brightness">
 			<arg name="brightness" type="i" direction="in" />
 		</method>
+		<method name="blank_screen" />
+		<method name="show_logo"/>
 		<signal name="lcd_brightness_set" >
 			<arg name="brightness" type="i" direction="out" />
 		</signal>

@@ -39,6 +39,8 @@ class LogitechApplet : public QMainWindow, Ui::LogitechApplet
 		void closeEvent( QCloseEvent *event );
 
 	private:
+		bool ok_to_close;
+		bool connected_to_daemon;
 		OrgFreedesktopLogitechDaemonInterface *interface;
 		QSystemTrayIcon *systrayicon;
 		void setEnabled( bool enabled );
@@ -48,9 +50,11 @@ class LogitechApplet : public QMainWindow, Ui::LogitechApplet
 		void KBBrightnessSet();
 		void LCDBrightnessSet();
 		void LCDContrastSet();
-		void kb_brightness_set( int brightness );
-		void lcd_brightness_set( int brightness );
-		void lcd_contrast_set( int contrast );
+		void DaemonSetKbBrightness( int brightness );
+		void DaemonSetLCDBrightness( int brightness );
+		void DaemonSetLCDContrast( int contrast );
+		void blank_screen();
+		void show_logo();
 		void shutdown();
 		void systemTrayClicked( QSystemTrayIcon::ActivationReason );
 };

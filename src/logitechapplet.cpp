@@ -21,11 +21,10 @@
 #include "appletinterface.h"
 #include "logitechapplet.h"
 
-bool ok_to_close;
-
 LogitechApplet::LogitechApplet()
 {
 	ok_to_close = false;
+	connected_to_daemon = false;
 	setupUi( this );
 	systrayicon = new QSystemTrayIcon( QIcon( ":/pics/logitech_logo.png" ), this );
 	systrayicon->setContextMenu( menu_Action );
@@ -41,9 +40,13 @@ LogitechApplet::LogitechApplet()
 	connect( KeyboardBrightnessDark, SIGNAL( toggled( bool ) ), this, SLOT( KBBrightnessSet() ) );
 	connect( KeyboardBrightnessMedium, SIGNAL( toggled( bool ) ), this, SLOT( KBBrightnessSet() ) );
 	connect( KeyboardBrightnessBright, SIGNAL( toggled( bool ) ), this, SLOT( KBBrightnessSet() ) );
+	connect( BlankScreen, SIGNAL( toggled( bool ) ), this, SLOT( blank_screen() ) );
+	connect( ShowLogo, SIGNAL( toggled( bool ) ), this, SLOT( show_logo() ) );
 	interface = new OrgFreedesktopLogitechDaemonInterface( "org.freedesktop.LogitechDaemon", "/org/freedesktop/LogitechDaemon", QDBusConnection::systemBus(), this );
 	startTimer( 1000 );
-	
+	connect( interface, SIGNAL( lcd_brightness_set( int ) ), this, SLOT( DaemonSetLCDBrightness( int ) ) );
+	connect( interface, SIGNAL( lcd_contrast_set( int ) ), this, SLOT( DaemonSetLCDContrast( int ) ) );
+	connect( interface, SIGNAL( kb_brightness_set( int ) ), this, SLOT( DaemonSetKbBrightness( int ) ) );
 }
 
 LogitechApplet::~LogitechApplet()
@@ -55,10 +58,13 @@ LogitechApplet::~LogitechApplet()
 void LogitechApplet::timerEvent( QTimerEvent *event )
 {
 	Q_UNUSED(event);
-	if ( interface->isValid() )
+	if ( interface->isValid() ){
+		connected_to_daemon = true;
 		setEnabled( true );
-	else
+	}else{
+		connected_to_daemon = false;
 		setEnabled( false );
+	}
 }
 
 void LogitechApplet::closeEvent( QCloseEvent *event )
@@ -131,8 +137,9 @@ void LogitechApplet::LCDContrastSet()
 		interface->set_lcd_contrast( 2 );
 }
 
-void LogitechApplet::kb_brightness_set( int brightness )
+void LogitechApplet::DaemonSetKbBrightness( int brightness )
 {
+	qDebug( "kb_brightness_set" );
 	switch( brightness ){
 		case 0:
 			KeyboardBrightnessDark->setChecked( true );
@@ -149,8 +156,9 @@ void LogitechApplet::kb_brightness_set( int brightness )
 	}
 }
 
-void LogitechApplet::lcd_brightness_set( int brightness )
+void LogitechApplet::DaemonSetLCDBrightness( int brightness )
 {
+	qDebug( "lcd_brightness_set" );
 	switch( brightness ){
 		case 0:
 			LCDBrightnessDark->setChecked( true );
@@ -167,8 +175,9 @@ void LogitechApplet::lcd_brightness_set( int brightness )
 	}
 }
 
-void LogitechApplet::lcd_contrast_set( int contrast )
+void LogitechApplet::DaemonSetLCDContrast( int contrast )
 {
+	qDebug( "lcd_contrast_set" );
 	switch( contrast ){
 		case 0:
 			LCDContrastLow->setChecked( true );
@@ -183,6 +192,18 @@ void LogitechApplet::lcd_contrast_set( int contrast )
 			LCDContrastLow->setChecked( true );
 			break;
 	}
+}
+
+void LogitechApplet::blank_screen()
+{
+	if( BlankScreen->isChecked() )
+		interface->blank_screen();
+}
+
+void LogitechApplet::show_logo()
+{
+	if( ShowLogo->isChecked() )
+		interface->show_logo();
 }
 
 #include "logitechapplet.moc"
