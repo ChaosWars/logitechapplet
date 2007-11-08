@@ -139,7 +139,6 @@ void LogitechApplet::LCDContrastSet()
 
 void LogitechApplet::DaemonSetKbBrightness( int brightness )
 {
-	qDebug( "kb_brightness_set : %d", brightness );
 	switch( brightness ){
 		case 0:
 			KeyboardBrightnessDark->setChecked( true );
@@ -158,7 +157,6 @@ void LogitechApplet::DaemonSetKbBrightness( int brightness )
 
 void LogitechApplet::DaemonSetLCDBrightness( int brightness )
 {
-	qDebug( "lcd_brightness_set : %d", brightness );
 	switch( brightness ){
 		case 0:
 			LCDBrightnessDark->setChecked( true );
@@ -177,7 +175,6 @@ void LogitechApplet::DaemonSetLCDBrightness( int brightness )
 
 void LogitechApplet::DaemonSetLCDContrast( int contrast )
 {
-	qDebug( "lcd_contrast_set : %d", contrast );
 	switch( contrast ){
 		case 0:
 			LCDContrastLow->setChecked( true );
