@@ -5,4 +5,5 @@ Name= Logitech Applet
 Icon=Logitech_logo.png
 Exec=logitechapplet
 Comment=Control applet for logitechdaemon
-Categories=Application;Settings;
+DocPath=logitechapplet/logitechapplet.html
+Categories=Qt;KDE;Application;Settings;X-KDE-Settings-File
