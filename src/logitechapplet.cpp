@@ -26,7 +26,7 @@ LogitechApplet::LogitechApplet()
 	ok_to_close = false;
 	connected_to_daemon = false;
 	setupUi( this );
-	systrayicon = new QSystemTrayIcon( QIcon( ":/pics/logitech_logo.png" ), this );
+	systrayicon = new QSystemTrayIcon( QIcon( ":/images/logitech_logo.png" ), this );
 	systrayicon->setContextMenu( menu_Action );
 	systrayicon->show();
 	connect( systrayicon, SIGNAL( activated ( QSystemTrayIcon::ActivationReason ) ), this, SLOT( systemTrayClicked( QSystemTrayIcon::ActivationReason ) ) );
@@ -81,7 +81,7 @@ void LogitechApplet::systemTrayClicked( QSystemTrayIcon::ActivationReason reason
 {
 	if( reason != QSystemTrayIcon::Trigger )
 		return;
-	
+
 	if( isVisible() )
 		hide();
 	else
