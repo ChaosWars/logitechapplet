@@ -17,6 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#include <QApplication>
 #include <QCloseEvent>
 #include "appletinterface.h"
 #include "logitechapplet.h"
@@ -51,8 +52,8 @@ LogitechApplet::LogitechApplet()
 
 LogitechApplet::~LogitechApplet()
 {
+    delete interface;
 	delete systrayicon;
-	delete interface;
 }
 
 void LogitechApplet::timerEvent( QTimerEvent *event )
@@ -71,6 +72,7 @@ void LogitechApplet::closeEvent( QCloseEvent *event )
 {
 	if( ok_to_close ){
 		event->accept();
+        QApplication::quit();
 	}else{
 		event->ignore();
 		hide();

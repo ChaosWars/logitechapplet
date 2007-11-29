@@ -1,28 +1,16 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="7" >
+ <DocsAndViews NumberOfDocuments="3" >
   <Doc0 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/logitechapplet.cpp" >
-   <View0 Encoding="" line="28" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc0>
   <Doc1 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/logitechapplet.h" >
-   <View0 Encoding="" line="0" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/applet.qrc" >
-   <View0 Encoding="" line="2" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/main.cpp" >
+   <View0 Encoding="" line="26" Type="Source" />
   </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/CMakeLists.txt" >
-   <View0 Encoding="" line="18" Type="Source" />
-  </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/applet.xml" >
-   <View0 Encoding="" line="0" Type="Source" />
-  </Doc4>
-  <Doc5 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/logitechapplet.desktop" >
-   <View0 Encoding="" line="9" Type="Source" />
-  </Doc5>
-  <Doc6 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/CMakeLists.txt" >
-   <View0 Encoding="" line="3" Type="Source" />
-  </Doc6>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>
