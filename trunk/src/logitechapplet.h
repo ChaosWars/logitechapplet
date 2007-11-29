@@ -46,7 +46,7 @@ class LogitechApplet : public QMainWindow, Ui::LogitechApplet
 		void setEnabled( bool enabled );
 
 	private Q_SLOTS:
-		
+
 		void KBBrightnessSet();
 		void LCDBrightnessSet();
 		void LCDContrastSet();

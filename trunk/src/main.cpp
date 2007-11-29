@@ -24,6 +24,7 @@
 int main( int argc, char *argv[] )
 {
 	QApplication app( argc, argv );
+    app.setQuitOnLastWindowClosed( false );
 	LogitechApplet *applet = new LogitechApplet();
 	applet->show();
 	return app.exec();
