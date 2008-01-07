@@ -1,3 +1,4 @@
+ADD_SUBDIRECTORY( pics )
 FIND_PACKAGE( Qt4 REQUIRED )
 FIND_PACKAGE( DBUS REQUIRED )
 INCLUDE_DIRECTORIES( ${QT_INCLUDES}
@@ -16,5 +17,4 @@ ADD_DEFINITIONS( ${QT_DEFINITIONS} )
 ADD_EXECUTABLE( logitechapplet ${SRC} ${DBUSSRC} ${UI_SRC} ${QRC} )
 TARGET_LINK_LIBRARIES( logitechapplet ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${QT_QTDBUS_LIBRARY} )
 INSTALL( TARGETS logitechapplet RUNTIME DESTINATION /usr/bin )
-INSTALL( FILES images/logitech_logo.png images/Logitech_logo.png DESTINATION /usr/share/pixmaps )
 INSTALL( FILES logitechapplet.desktop DESTINATION /usr/share/applications )

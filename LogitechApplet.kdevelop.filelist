@@ -3,7 +3,11 @@ CMakeLists.txt
 cmake
 src
 src/CMakeLists.txt
+src/images
+src/images/CMakeLists.txt
 src/logitechapplet.cpp
 src/logitechapplet.h
 src/main.cpp
+src/mouse.cpp
+src/mouse.h
 templates
