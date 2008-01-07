@@ -17,8 +17,13 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#include <linux/types.h>
 #include <linux/hiddev.h>
 #include "mouse.h"
+
+#define LOGITECH	0x046d
+#define MX_REVOLUTION	0xc51a	// version RR41.01_B0025
+#define MX_REVOLUTION2	0xc525	// version RQR02.00_B0020
 
 /*
  * The following code is based heavily on revoco.c written by Edgar Toernig <froese@gmx.de>

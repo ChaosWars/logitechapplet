@@ -2,14 +2,14 @@
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
  <DocsAndViews NumberOfDocuments="3" >
-  <Doc0 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/logitechapplet.cpp" >
-   <View0 Encoding="" Type="Source" />
+  <Doc0 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/CMakeLists.txt" >
+   <View0 Encoding="" line="8" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/logitechapplet.h" >
-   <View0 Encoding="" Type="Source" />
+  <Doc1 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/mouse.cpp" >
+   <View0 Encoding="" line="19" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/main.cpp" >
-   <View0 Encoding="" line="26" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:///home/lawrence/Projects/LogitechApplet/src/mouse.h" >
+   <View0 Encoding="" line="0" Type="Source" />
   </Doc2>
  </DocsAndViews>
  <pluginList>
