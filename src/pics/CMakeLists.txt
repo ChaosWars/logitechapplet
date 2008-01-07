@@ -1,1 +1,1 @@
-INSTALL( FILES logitech_logo.png DESTINATION /usr/share/pixmaps )
+INSTALL( FILES logitech_logo.png logitech-logo.png DESTINATION /usr/share/pixmaps )
