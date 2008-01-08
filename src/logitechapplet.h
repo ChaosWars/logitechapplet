@@ -57,6 +57,10 @@ class LogitechApplet : public QMainWindow, Ui::LogitechApplet
 		void show_logo();
 		void shutdown();
 		void systemTrayClicked( QSystemTrayIcon::ActivationReason );
+        void freeSpinToggled( bool on );
+        void clickToClickToggled( bool on );
+        void clickToClickButtonChanged( int button );
+        void speedChanged( int speed );
 };
 
 #endif //	_LOGITECHAPPLET_H_

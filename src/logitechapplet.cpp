@@ -22,6 +22,8 @@
 #include "appletinterface.h"
 #include "logitechapplet.h"
 
+static int MouseButtons[] = { 3, 4, 5, 6, 7, 8, 9, 11, 13 };
+
 LogitechApplet::LogitechApplet()
 {
 	ok_to_close = false;
@@ -48,6 +50,12 @@ LogitechApplet::LogitechApplet()
 	connect( interface, SIGNAL( lcd_brightness_set( int ) ), this, SLOT( DaemonSetLCDBrightness( int ) ) );
 	connect( interface, SIGNAL( lcd_contrast_set( int ) ), this, SLOT( DaemonSetLCDContrast( int ) ) );
 	connect( interface, SIGNAL( kb_brightness_set( int ) ), this, SLOT( DaemonSetKbBrightness( int ) ) );
+
+    //Setup mouse widget
+    connect( freeSpinRadioButton, SIGNAL( toggled( bool ) ), this, SLOT( freeSpinToggled( bool ) ) );
+    connect( clickToClickRadioButton, SIGNAL( toggled( bool ) ), this, SLOT( clickToClickToggled( bool ) ) );
+    connect( buttonComboBox, SIGNAL( currentIndexChanged( int ) ), this, SLOT( clickToClickButtonChanged( int ) ) );
+    connect( speedSpinBox, SIGNAL( valueChanged( int ) ), this, SLOT( speedChanged( int ) ) );
 }
 
 LogitechApplet::~LogitechApplet()
@@ -203,6 +211,34 @@ void LogitechApplet::show_logo()
 {
 	if( ShowLogo->isChecked() )
 		interface->show_logo();
+}
+
+void LogitechApplet::freeSpinToggled( bool on )
+{
+    if( on ){
+        interface->set_mouse_free_spin();
+    }
+}
+
+void LogitechApplet::clickToClickToggled( bool on )
+{
+    clickToClickFrame->setEnabled( on );
+
+    if( on ){
+        interface->set_mouse_manual_mode( MouseButtons[buttonComboBox->currentIndex()] );
+        interface->set_mouse_auto_mode( speedSpinBox->value() );
+    }
+}
+
+void LogitechApplet::clickToClickButtonChanged( int button )
+{
+    interface->set_mouse_manual_mode( MouseButtons[button] );
+}
+
+void LogitechApplet::speedChanged( int speed )
+{
+    if( speed >= 0 && speed <= 50 )
+        interface->set_mouse_auto_mode( speed );
 }
 
 #include "logitechapplet.moc"
