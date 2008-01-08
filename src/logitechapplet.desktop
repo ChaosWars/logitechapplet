@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Type=Application
 Name= Logitech Applet
-Icon=Logitech_logo.png
+Icon=logitech_logo.png
 Exec=logitechapplet
 Comment=Control applet for logitechdaemon
 DocPath=logitechapplet/logitechapplet.html
