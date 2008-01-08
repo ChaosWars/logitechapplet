@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>712</width>
-    <height>390</height>
+    <width>598</width>
+    <height>425</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -198,6 +198,183 @@
        <attribute name="title" >
         <string>Mouse</string>
        </attribute>
+       <layout class="QGridLayout" >
+        <item row="0" column="0" >
+         <widget class="QGroupBox" name="mouseWheelModeGroupBox" >
+          <property name="minimumSize" >
+           <size>
+            <width>290</width>
+            <height>180</height>
+           </size>
+          </property>
+          <property name="title" >
+           <string>Mouse Wheel Mode</string>
+          </property>
+          <layout class="QVBoxLayout" >
+           <item>
+            <widget class="QRadioButton" name="freeSpinRadioButton" >
+             <property name="text" >
+              <string>&amp;Free spin mode</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="clickToClickRadioButton" >
+             <property name="text" >
+              <string>&amp;Click-to-click mode</string>
+             </property>
+             <property name="checked" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="clickToClickFrame" >
+             <property name="minimumSize" >
+              <size>
+               <width>270</width>
+               <height>80</height>
+              </size>
+             </property>
+             <property name="frameShape" >
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow" >
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" >
+              <item>
+               <layout class="QHBoxLayout" >
+                <item>
+                 <widget class="QLabel" name="speedLabel" >
+                  <property name="text" >
+                   <string>Speed</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="speedSpinBox" >
+                  <property name="minimumSize" >
+                   <size>
+                    <width>0</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <property name="toolTip" >
+                   <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Speed at which to switch to free-spin mode. Values range from 0 - 50, with a value of 0 disabling switching to free-spin mode.&lt;/p>&lt;/body>&lt;/html></string>
+                  </property>
+                  <property name="maximum" >
+                   <number>50</number>
+                  </property>
+                  <property name="value" >
+                   <number>50</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" >
+                <item>
+                 <widget class="QLabel" name="buttonLabel" >
+                  <property name="text" >
+                   <string>Button</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="buttonComboBox" >
+                  <property name="minimumSize" >
+                   <size>
+                    <width>200</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <item>
+                   <property name="text" >
+                    <string>Middle Mouse Button</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text" >
+                    <string>Rear Thumb Button</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text" >
+                    <string>Front Thumb Button</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text" >
+                    <string>Find Button</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text" >
+                    <string>Wheel Left Tilt</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text" >
+                    <string>Wheel Right Tilt</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text" >
+                    <string>Thumb Wheel Forward</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text" >
+                    <string>Thumb Wheel Backwards</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text" >
+                    <string>Thumb Wheel Clicked</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1" >
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>141</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="0" >
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>20</width>
+            <height>31</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -208,8 +385,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>712</width>
-     <height>32</height>
+     <width>598</width>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Action" >
@@ -227,7 +404,6 @@
    </property>
   </action>
  </widget>
- <includes/>
  <resources>
   <include location="applet.qrc" />
  </resources>
