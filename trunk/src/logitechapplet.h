@@ -61,6 +61,11 @@ class LogitechApplet : public QMainWindow, Ui::LogitechApplet
         void clickToClickToggled( bool on );
         void clickToClickButtonChanged( int button );
         void speedChanged( int speed );
+        void freeSpinOnWheelMoveChanged( bool on );
+        void clickToClickOnWheelMoveChanged( bool on );
+        void unknownChanged( bool on );
+        void speedRadioButtonToggled( bool on );
+        void modeChangedRadioButtonToggled( bool on );
 };
 
 #endif //	_LOGITECHAPPLET_H_

@@ -56,6 +56,13 @@ LogitechApplet::LogitechApplet()
     connect( clickToClickRadioButton, SIGNAL( toggled( bool ) ), this, SLOT( clickToClickToggled( bool ) ) );
     connect( buttonComboBox, SIGNAL( currentIndexChanged( int ) ), this, SLOT( clickToClickButtonChanged( int ) ) );
     connect( speedSpinBox, SIGNAL( valueChanged( int ) ), this, SLOT( speedChanged( int ) ) );
+    connect( speedRadioButton, SIGNAL( toggled( bool ) ), speedSpinBox, SLOT( setEnabled( bool ) ) );
+    connect( speedRadioButton, SIGNAL( toggled( bool ) ), this, SLOT( speedRadioButtonToggled( bool ) ) );
+    connect( modeChangeRadioButton, SIGNAL( toggled( bool ) ), buttonComboBox, SLOT( setEnabled( bool ) ) );
+    connect( modeChangeRadioButton, SIGNAL( toggled( bool ) ), this, SLOT( modeChangedRadioButtonToggled( bool ) ) );
+    connect( freeSpinOnWheelMoveRadioButton, SIGNAL( toggled( bool ) ), this, SLOT( freeSpinOnWheelMoveChanged( bool ) ) );
+    connect( clickToClickOnWheelMoveRadioButton, SIGNAL( toggled( bool ) ), this, SLOT( clickToClickOnWheelMoveChanged( bool ) ) );
+    connect( unknownRadioButton, SIGNAL( toggled( bool ) ), this, SLOT( unknownChanged( bool ) ) );
 }
 
 LogitechApplet::~LogitechApplet()
@@ -222,11 +229,16 @@ void LogitechApplet::freeSpinToggled( bool on )
 
 void LogitechApplet::clickToClickToggled( bool on )
 {
-    clickToClickFrame->setEnabled( on );
+    clickToClickGroupBox->setEnabled( on );
 
     if( on ){
-        interface->set_mouse_manual_mode( MouseButtons[buttonComboBox->currentIndex()] );
-        interface->set_mouse_auto_mode( speedSpinBox->value() );
+        if( modeChangeRadioButton->isChecked() ){
+            interface->set_mouse_manual_mode( MouseButtons[buttonComboBox->currentIndex()] );
+        }else{
+            if( speedRadioButton->isChecked() ){
+                interface->set_mouse_auto_mode( speedSpinBox->value() );
+            }
+        }
     }
 }
 
@@ -239,6 +251,41 @@ void LogitechApplet::speedChanged( int speed )
 {
     if( speed >= 0 && speed <= 50 )
         interface->set_mouse_auto_mode( speed );
+}
+
+void LogitechApplet::freeSpinOnWheelMoveChanged( bool on )
+{
+    if( on ){
+        interface->set_mouse_fs_on_wheel_move();
+    }
+}
+
+void LogitechApplet::clickToClickOnWheelMoveChanged( bool on )
+{
+    if( on ){
+        interface->set_mouse_cc_on_wheel_move();
+    }
+}
+
+void LogitechApplet::unknownChanged( bool on )
+{
+    if( on ){
+        interface->set_mouse_unknown();
+    }
+}
+
+void LogitechApplet::speedRadioButtonToggled( bool on )
+{
+    if( on ){
+        speedChanged( speedSpinBox->value() );
+    }
+}
+
+void LogitechApplet::modeChangedRadioButtonToggled( bool on )
+{
+    if( on ){
+        clickToClickButtonChanged( buttonComboBox->currentIndex() );
+    }
 }
 
 #include "logitechapplet.moc"
