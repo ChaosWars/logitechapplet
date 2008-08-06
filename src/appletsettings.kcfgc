@@ -1,0 +1,6 @@
+# Code generation options for kconfig_compiler
+File=appletsettings.kcfg
+ClassName=AppletSettings
+Singleton=true
+Mutators=LCDBrightnessDark,LCDBrightnessMedium,LCDBrightnessBright,LCDContrastLow,LCDContrastMedium,LCDContrastHigh,KeyboardBrightnessLow,KeyboardBrightnessMedium,KeyboardBrightnessHigh
+# will create the necessary code for setting those variables

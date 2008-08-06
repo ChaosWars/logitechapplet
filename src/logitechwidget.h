@@ -17,3 +17,44 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
+/**
+ * @class LogitechWidget logitechwidget.h
+ */
+#ifndef LOGITECHWIDGET_H
+#define LOGITECHWIDGET_H
+
+#include "ui_logitechwidget.h"
+
+class ComGooglecodeLogitechg15Interface;
+
+/**
+ * @brief The central widget for Logitech Applet
+ *
+ * This widget provides all widget interfaces to the logitechg15 daemon
+ *
+ * @author Lawrence Lee <valheru.ashen.shugar@gmail.com>
+ */
+class LogitechWidget : public QWidget, public Ui::LogitechWidget
+{
+    Q_OBJECT
+
+    public:
+        LogitechWidget( ComGooglecodeLogitechg15Interface *interface, QWidget *parent = 0 );
+        ~LogitechWidget();
+
+    public Q_SLOTS:
+        void KeyboardBrightnessSet();
+        void LCDBrightnessSet();
+        void LCDContrastSet();
+        void DaemonSetKeyboardBrightness ( int brightness );
+        void DaemonSetLCDBrightness ( int brightness );
+        void DaemonSetLCDContrast ( int contrast );
+        void blank_screen();
+        void show_logo();
+
+    private:
+        ComGooglecodeLogitechg15Interface *m_interface;
+};
+
+#endif

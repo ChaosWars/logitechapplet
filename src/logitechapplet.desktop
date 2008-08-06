@@ -1,9 +1,14 @@
 [Desktop Entry]
+Categories=Qt;KDE;Settings;X-KDE-Settings-File;
+Comment=Control Applet for logitechg15
 Encoding=UTF-8
-Type=Application
-Name= Logitech Applet
-Icon=logitech_logo.png
 Exec=logitechapplet
-Comment=Control applet for logitechdaemon
-DocPath=logitechapplet/logitechapplet.html
-Categories=Qt;KDE;Application;Settings;X-KDE-Settings-File
+GenericName=Control Applet for logitechg15
+Icon=logitechapplet
+Name=Logitech Applet
+Terminal=false
+Type=Application
+X-DBUS-StartupType=Unique
+X-DBUS-ServiceName=com.googlecode.logitechapplet
+X-DocPath=logitechapplet/index.html
+X-KDE-StartupNotify=true

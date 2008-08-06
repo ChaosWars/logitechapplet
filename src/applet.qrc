@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/" >
-        <file>pics/logitech_logo.png</file>
-        <file>pics/logitech-logo.png</file>
-    </qresource>
-</RCC>
