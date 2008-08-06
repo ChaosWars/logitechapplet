@@ -1,7 +1,7 @@
 <!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
 		  "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
-<node name="/org/freedesktop/LogitechDaemon">
-	<interface name="org.freedesktop.LogitechDaemon">
+		  <node name="/com/googlecode/logitechg15">
+	<interface name="com.googlecode.logitechg15">
         <!-- Keyboard methods and signals -->
 		<method name="set_lcd_brightness">
 			<arg name="brightness" type="i" direction="in" />
@@ -23,17 +23,5 @@
 		<signal name="kb_brightness_set">
 			<arg name="brightness" type="i" direction="out" />
 		</signal>
-        <!-- Mouse methods and signals -->
-        <method name="set_mouse_free_spin"/>
-        <method name="set_mouse_click_to_click"/>
-        <method name="set_mouse_fs_on_wheel_move"/>
-        <method name="set_mouse_cc_on_wheel_move"/>
-        <method name="set_mouse_unknown"/>
-        <method name="set_mouse_manual_mode">
-            <arg name="button" type="i" direction="in" />
-        </method>
-        <method name="set_mouse_auto_mode">
-            <arg name="speed" type="i" direction="in" />
-        </method>
 	</interface>
 </node>

@@ -1,0 +1,1 @@
+INSTALL( FILES logitechapplet.png DESTINATION ${ICON_INSTALL_DIR}/oxygen/48x48/apps )

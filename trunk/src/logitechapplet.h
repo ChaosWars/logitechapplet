@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2007 by Lawrence Lee   *
- *   valheru@facticius.net   *
+ *   Copyright (C) 2008 by Lawrence Lee                                    *
+ *   valheru.ashen.shugar@gmail.com                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -17,55 +17,42 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 #ifndef _LOGITECHAPPLET_H_
 #define _LOGITECHAPPLET_H_
 
-#include <QMainWindow>
-#include <QSystemTrayIcon>
-#include "ui_logitechapplet.h"
+#include <KDE/KXmlGuiWindow>
 
-class OrgFreedesktopLogitechDaemonInterface;
+class KSystemTrayIcon;
+class QTimerEvent;
+class ComGooglecodeLogitechg15Interface;
+class LogitechWidget;
 
-class LogitechApplet : public QMainWindow, Ui::LogitechApplet
+class LogitechApplet : public KXmlGuiWindow
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		LogitechApplet();
-		~LogitechApplet();
+    public:
+        LogitechApplet( QWidget *parent = 0 );
+        ~LogitechApplet();
 
-	protected:
-		void timerEvent( QTimerEvent *event );
-		void closeEvent( QCloseEvent *event );
+    protected:
+        virtual void timerEvent( QTimerEvent *event );
+        virtual bool queryClose();
+        virtual bool queryExit();
 
-	private:
-		bool ok_to_close;
-		bool connected_to_daemon;
-		OrgFreedesktopLogitechDaemonInterface *interface;
-		QSystemTrayIcon *systrayicon;
-		void setEnabled( bool enabled );
+    private:
+        bool ok_to_close;
+        bool connected_to_daemon;
+        QWidget *m_widget;
+        LogitechWidget *logitechWidget;
+        KSystemTrayIcon *trayIcon;
+        ComGooglecodeLogitechg15Interface *interface;
+        void setEnabled ( bool enabled );
+        void setupActions();
 
-	private Q_SLOTS:
-
-		void KBBrightnessSet();
-		void LCDBrightnessSet();
-		void LCDContrastSet();
-		void DaemonSetKbBrightness( int brightness );
-		void DaemonSetLCDBrightness( int brightness );
-		void DaemonSetLCDContrast( int contrast );
-		void blank_screen();
-		void show_logo();
-		void shutdown();
-		void systemTrayClicked( QSystemTrayIcon::ActivationReason );
-        void freeSpinToggled( bool on );
-        void clickToClickToggled( bool on );
-        void clickToClickButtonChanged( int button );
-        void speedChanged( int speed );
-        void freeSpinOnWheelMoveChanged( bool on );
-        void clickToClickOnWheelMoveChanged( bool on );
-        void unknownChanged( bool on );
-        void speedRadioButtonToggled( bool on );
-        void modeChangedRadioButtonToggled( bool on );
+    private Q_SLOTS:
+        void exit();
 };
 
-#endif //	_LOGITECHAPPLET_H_
+#endif //   _LOGITECHAPPLET_H_
