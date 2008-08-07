@@ -20,10 +20,16 @@
 
 #include <KDE/KActionCollection>
 #include <KDE/KApplication>
+#include <KDE/KCmdLineArgs>
+#include <KDE/KConfigDialog>
+#include <KDE/KDebug>
+#include <KDE/KGlobal>
+#include <KDE/KLocale>
 #include <KDE/KStandardAction>
 #include <KDE/KSystemTrayIcon>
-#include <QDBusConnection>
 #include <QTimerEvent>
+#include "appletsettings.h"
+#include "generalsettingswidget.h"
 #include "logitechappletinterface.h"
 #include "logitechapplet.h"
 #include "logitechwidget.h"
@@ -31,62 +37,56 @@
 LogitechApplet::LogitechApplet ( QWidget *parent )
     : KXmlGuiWindow ( parent ), ok_to_close ( false ), connected_to_daemon ( false )
 {
+    setObjectName( "MainWindow" );
     interface = new ComGooglecodeLogitechg15Interface ( "com.googlecode.logitechg15", "/com/googlecode/logitechg15", QDBusConnection::systemBus(), this );
+    interface->blank_screen();
     m_widget = new QWidget( this );
-    QHBoxLayout *layout = new QHBoxLayout( m_widget );
+    layout = new QHBoxLayout( m_widget );
     logitechWidget = new LogitechWidget( interface, m_widget );
     layout->addWidget( logitechWidget );
     setCentralWidget( m_widget );
     setupActions();
     setupGUI();
     setAutoSaveSettings();
+    config = KGlobal::config();
     trayIcon = new KSystemTrayIcon( QIcon( ":/pics/logitech.png" ), this );
     connect( trayIcon, SIGNAL( quitSelected() ), SLOT( exit() ) );
     trayIcon->show();
+    readProperties( KConfigGroup( config, "WidgetSettings") );
     startTimer ( 1000 );
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+    args->clear();
+    AppletSettings::startMinimized() ? hide() : show();
 }
 
 LogitechApplet::~LogitechApplet()
 {
+    KConfigGroup configGroup( config, "WidgetSettings" );
+    logitechWidget->saveProperties( configGroup );
     delete logitechWidget;
+    delete layout;
     delete m_widget;
     delete interface;
     delete trayIcon;
 }
 
-void LogitechApplet::timerEvent( QTimerEvent *event )
+void LogitechApplet::loadSettings( QString settings )
 {
-    Q_UNUSED ( event );
+}
 
-    if ( interface->isValid() ) {
-        connected_to_daemon = true;
-        m_widget->setEnabled ( true );
-
-    } else {
-        connected_to_daemon = false;
-        m_widget->setEnabled( false );
+void LogitechApplet::optionsConfigure()
+{
+    if ( KConfigDialog::showDialog( "settings" ) )  {
+        return;
     }
-}
 
-void LogitechApplet::setEnabled ( bool enabled )
-{
-    m_widget->setEnabled ( enabled );
-//  LCDBrightnessDark->setEnabled( enabled );
-//  LCDBrightnessMedium->setEnabled( enabled );
-//  LCDBrightnessBright->setEnabled( enabled );
-//  LCDContrastLow->setEnabled( enabled );
-//  LCDContrastMedium->setEnabled( enabled );
-//  LCDContrastHigh->setEnabled( enabled );
-//  KeyboardBrightnessDark->setEnabled( enabled );
-//  KeyboardBrightnessMedium->setEnabled( enabled );
-//  KeyboardBrightnessBright->setEnabled( enabled );
-}
-
-void LogitechApplet::setupActions()
-{
-    setStandardToolBarMenuEnabled( false );
-    createStandardStatusBarAction();
-    KStandardAction::quit( this, SLOT( exit() ), actionCollection() );
+    KConfigDialog *dialog = new KConfigDialog( this, "settings", AppletSettings::self() );
+    dialog->setAttribute( Qt::WA_DeleteOnClose );
+    QWidget *generalSettingsPage = new QWidget();
+    GeneralSettingsWidget *generalSettingsWidget = new GeneralSettingsWidget( generalSettingsPage );
+    dialog->addPage( generalSettingsPage, i18n( "General" ), "preferences-system-general" );
+    connect( dialog, SIGNAL( settingsChanged( QString ) ), this, SLOT( loadSettings( QString ) ) );
+    dialog->show();
 }
 
 bool LogitechApplet::queryClose()
@@ -101,6 +101,52 @@ bool LogitechApplet::queryClose()
 bool LogitechApplet::queryExit()
 {
     return true;
+}
+
+void LogitechApplet::readProperties( const KConfigGroup &configGroup )
+{
+    kDebug() << configGroup.name();
+    // the 'config' object points to the session managed
+    // config file.  this function is automatically called whenever
+    // the app is being restored.  read in here whatever you wrote
+    // in 'saveProperties'
+    if( configGroup.name() == "WidgetSettings" )
+        logitechWidget->readProperties( configGroup );
+}
+
+void LogitechApplet::saveProperties( KConfigGroup &configGroup )
+{
+    kDebug() << configGroup.name();
+    // the 'config' object points to the session managed
+    // config file.  anything you write here will be available
+    // later when this app is restored
+}
+
+void LogitechApplet::setEnabled ( bool enabled )
+{
+    m_widget->setEnabled ( enabled );
+}
+
+void LogitechApplet::setupActions()
+{
+    setStandardToolBarMenuEnabled( false );
+    createStandardStatusBarAction();
+    KStandardAction::quit( this, SLOT( exit() ), actionCollection() );
+    preferences = KStandardAction::preferences( this, SLOT( optionsConfigure() ), actionCollection() );
+}
+
+void LogitechApplet::timerEvent( QTimerEvent *event )
+{
+    Q_UNUSED ( event );
+
+    if ( interface->isValid() ) {
+        connected_to_daemon = true;
+        m_widget->setEnabled ( true );
+
+    } else {
+        connected_to_daemon = false;
+        m_widget->setEnabled( false );
+    }
 }
 
 void LogitechApplet::exit()

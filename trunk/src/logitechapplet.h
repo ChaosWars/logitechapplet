@@ -21,9 +21,12 @@
 #ifndef _LOGITECHAPPLET_H_
 #define _LOGITECHAPPLET_H_
 
+#include <KDE/KConfigGroup>
 #include <KDE/KXmlGuiWindow>
 
+class KAction;
 class KSystemTrayIcon;
+class QHBoxLayout;
 class QTimerEvent;
 class ComGooglecodeLogitechg15Interface;
 class LogitechWidget;
@@ -37,14 +40,19 @@ class LogitechApplet : public KXmlGuiWindow
         ~LogitechApplet();
 
     protected:
-        virtual void timerEvent( QTimerEvent *event );
+        virtual void readProperties( const KConfigGroup &configGroup );
+        virtual void saveProperties( KConfigGroup &configGroup );
         virtual bool queryClose();
         virtual bool queryExit();
+        virtual void timerEvent( QTimerEvent *event );
 
     private:
         bool ok_to_close;
         bool connected_to_daemon;
+        KAction *preferences;
+        KSharedConfigPtr config;
         QWidget *m_widget;
+        QHBoxLayout *layout;
         LogitechWidget *logitechWidget;
         KSystemTrayIcon *trayIcon;
         ComGooglecodeLogitechg15Interface *interface;
@@ -53,6 +61,8 @@ class LogitechApplet : public KXmlGuiWindow
 
     private Q_SLOTS:
         void exit();
+        void loadSettings( QString settings );
+        void optionsConfigure();
 };
 
 #endif //   _LOGITECHAPPLET_H_

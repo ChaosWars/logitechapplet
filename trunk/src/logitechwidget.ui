@@ -34,21 +34,24 @@
           </property>
           <layout class="QGridLayout" >
            <item row="0" column="0" >
-            <widget class="QRadioButton" name="kcfg_LCDBrightnessDark" >
+            <widget class="QRadioButton" name="LCDBrightnessDark" >
              <property name="text" >
               <string>Dark</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0" >
-            <widget class="QRadioButton" name="kcfg_LCDBrightnessMedium" >
+            <widget class="QRadioButton" name="LCDBrightnessMedium" >
              <property name="text" >
               <string>Medium</string>
+             </property>
+             <property name="checked" >
+              <bool>true</bool>
              </property>
             </widget>
            </item>
            <item row="2" column="0" >
-            <widget class="QRadioButton" name="kcfg_LCDBrightnessBright" >
+            <widget class="QRadioButton" name="LCDBrightnessBright" >
              <property name="text" >
               <string>Bright</string>
              </property>
@@ -64,21 +67,24 @@
           </property>
           <layout class="QGridLayout" >
            <item row="0" column="0" >
-            <widget class="QRadioButton" name="kcfg_LCDContrastLow" >
+            <widget class="QRadioButton" name="LCDContrastLow" >
              <property name="text" >
               <string>Low</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0" >
-            <widget class="QRadioButton" name="kcfg_LCDContrastMedium" >
+            <widget class="QRadioButton" name="LCDContrastMedium" >
              <property name="text" >
               <string>Medium</string>
+             </property>
+             <property name="checked" >
+              <bool>true</bool>
              </property>
             </widget>
            </item>
            <item row="2" column="0" >
-            <widget class="QRadioButton" name="kcfg_LCDContrastHigh" >
+            <widget class="QRadioButton" name="LCDContrastHigh" >
              <property name="text" >
               <string>High</string>
              </property>
@@ -103,21 +109,24 @@
           </property>
           <layout class="QGridLayout" >
            <item row="0" column="0" >
-            <widget class="QRadioButton" name="kcfg_KeyboardBrightnessDark" >
+            <widget class="QRadioButton" name="KeyboardBrightnessDark" >
              <property name="text" >
               <string>Dark</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0" >
-            <widget class="QRadioButton" name="kcfg_KeyboardBrightnessMedium" >
+            <widget class="QRadioButton" name="KeyboardBrightnessMedium" >
              <property name="text" >
               <string>Medium</string>
+             </property>
+             <property name="checked" >
+              <bool>true</bool>
              </property>
             </widget>
            </item>
            <item row="2" column="0" >
-            <widget class="QRadioButton" name="kcfg_KeyboardBrightnessBright" >
+            <widget class="QRadioButton" name="KeyboardBrightnessBright" >
              <property name="text" >
               <string>Bright</string>
              </property>
@@ -136,16 +145,19 @@
        </property>
        <layout class="QGridLayout" >
         <item row="0" column="0" >
-         <widget class="QRadioButton" name="kcfg_BlankScreen" >
+         <widget class="QRadioButton" name="BlankScreen" >
           <property name="text" >
            <string>Blank Screen</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0" >
-         <widget class="QRadioButton" name="kcfg_ShowLogo" >
+         <widget class="QRadioButton" name="ShowLogo" >
           <property name="text" >
            <string>Show Logo</string>
+          </property>
+          <property name="checked" >
+           <bool>true</bool>
           </property>
          </widget>
         </item>

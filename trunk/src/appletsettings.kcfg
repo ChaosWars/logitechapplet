@@ -4,18 +4,10 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="logitechappletrc"/>
-  <group name="KeyboardSettings">
-    <entry name="LCDBrightness" type="Int">
-        <label>The brightness of the LCD</label>
-        <default>1</default>
-    </entry>
-    <entry name="LCDContrast" type="Int">
-        <label>The contrast of the LCD</label>
-        <default>1</default>
-    </entry>
-    <entry name="KeyboardBrightness" type="Int">
-        <label>The brightness of the keyboard</label>
-        <default>1</default>
+  <group name="GeneralSettings">
+    <entry name="startMinimized" type="Bool">
+        <label>Start the applet minimized to the system tray</label>
+        <default>false</default>
     </entry>
   </group>
 </kcfg>

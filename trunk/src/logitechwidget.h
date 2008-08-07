@@ -24,6 +24,7 @@
 #ifndef LOGITECHWIDGET_H
 #define LOGITECHWIDGET_H
 
+#include <KDE/KConfigGroup>
 #include "ui_logitechwidget.h"
 
 class ComGooglecodeLogitechg15Interface;
@@ -42,6 +43,8 @@ class LogitechWidget : public QWidget, public Ui::LogitechWidget
     public:
         LogitechWidget( ComGooglecodeLogitechg15Interface *interface, QWidget *parent = 0 );
         ~LogitechWidget();
+        void readProperties( const KConfigGroup &group );
+        void saveProperties( KConfigGroup &group );
 
     public Q_SLOTS:
         void KeyboardBrightnessSet();
