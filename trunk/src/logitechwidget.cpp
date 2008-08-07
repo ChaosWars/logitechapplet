@@ -39,6 +39,9 @@ LogitechWidget::LogitechWidget( ComGooglecodeLogitechg15Interface *interface, QW
     connect ( KeyboardBrightnessBright, SIGNAL ( toggled ( bool ) ), this, SLOT ( KeyboardBrightnessSet() ) );
     connect ( BlankScreen, SIGNAL ( toggled ( bool ) ), this, SLOT ( blank_screen() ) );
     connect ( ShowLogo, SIGNAL ( toggled ( bool ) ), this, SLOT ( show_logo() ) );
+    connect( interface, SIGNAL( kb_brightness_set( int ) ), this, SLOT( DaemonSetKeyboardBrightness( int ) ) );
+    connect( interface, SIGNAL( lcd_brightness_set( int ) ), this, SLOT( DaemonSetLCDBrightness( int ) ) );
+    connect( interface, SIGNAL( lcd_contrast_set( int ) ), this, SLOT( DaemonSetLCDContrast( int ) ) );
 }
 
 LogitechWidget::~LogitechWidget()
@@ -107,57 +110,60 @@ void LogitechWidget::LCDContrastSet()
 
 void LogitechWidget::DaemonSetKeyboardBrightness ( int brightness )
 {
-    kDebug();
     switch ( brightness ) {
         case 0:
-            KeyboardBrightnessDark->setChecked ( true );
+            if( !KeyboardBrightnessDark->isChecked() )
+                KeyboardBrightnessDark->setChecked( true );
             break;
         case 1:
-            KeyboardBrightnessMedium->setChecked ( true );
+            if( !KeyboardBrightnessMedium->isChecked() )
+            KeyboardBrightnessMedium->setChecked( true );
             break;
         case 2:
-            KeyboardBrightnessBright->setChecked ( true );
+            if( !KeyboardBrightnessBright->isChecked() )
+                KeyboardBrightnessBright->setChecked ( true );
             break;
         default:
-            KeyboardBrightnessDark->setChecked ( true );
             break;
     }
 }
 
 void LogitechWidget::DaemonSetLCDBrightness ( int brightness )
 {
-    kDebug();
     switch ( brightness ) {
         case 0:
-            LCDBrightnessDark->setChecked ( true );
+            if( !LCDBrightnessDark->isChecked() )
+                LCDBrightnessDark->setChecked ( true );
             break;
         case 1:
-            LCDBrightnessMedium->setChecked ( true );
+            if( !LCDBrightnessMedium->isChecked() )
+                LCDBrightnessMedium->setChecked ( true );
             break;
         case 2:
-            LCDBrightnessBright->setChecked ( true );
+            if( !LCDBrightnessBright->isChecked() )
+                LCDBrightnessBright->setChecked ( true );
             break;
         default:
-            LCDBrightnessDark->setChecked ( true );
             break;
     }
 }
 
 void LogitechWidget::DaemonSetLCDContrast ( int contrast )
 {
-    kDebug();
     switch ( contrast ) {
         case 0:
-            LCDContrastLow->setChecked ( true );
+            if( !LCDContrastLow->isChecked() )
+                LCDContrastLow->setChecked ( true );
             break;
         case 1:
-            LCDContrastMedium->setChecked ( true );
+            if( !LCDContrastMedium->isChecked() )
+                LCDContrastMedium->setChecked ( true );
             break;
         case 2:
-            LCDContrastHigh->setChecked ( true );
+            if( !LCDContrastHigh->isChecked() )
+                LCDContrastHigh->setChecked ( true );
             break;
         default:
-            LCDContrastLow->setChecked ( true );
             break;
     }
 }
