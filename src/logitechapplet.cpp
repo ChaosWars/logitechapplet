@@ -25,6 +25,8 @@
 #include <KDE/KDebug>
 #include <KDE/KGlobal>
 #include <KDE/KLocale>
+#include <KDE/KPageWidget>
+#include <KDE/KPageWidgetItem>
 #include <KDE/KStandardAction>
 #include <KDE/KSystemTrayIcon>
 #include <QTimerEvent>
@@ -40,10 +42,14 @@ LogitechApplet::LogitechApplet ( QWidget *parent )
     setObjectName( "MainWindow" );
     interface = new ComGooglecodeLogitechg15Interface ( "com.googlecode.logitechg15", "/com/googlecode/logitechg15", QDBusConnection::systemBus(), this );
     interface->blank_screen();
-    m_widget = new QWidget( this );
-    layout = new QHBoxLayout( m_widget );
+    m_widget = new KPageWidget( this );
     logitechWidget = new LogitechWidget( interface, m_widget );
-    layout->addWidget( logitechWidget );
+    logitechWidgetItem = new KPageWidgetItem( logitechWidget, i18n( "Keyboard Settings" ) );
+    logitechWidgetItem->setHeader( i18n( "Keyboard Settings for Logitech G15" ) );
+    logitechWidgetItem->setIcon( KIcon( ":/pics/logitech.png" ) );
+    m_widget->addPage( logitechWidgetItem );
+    QWidget *widget = new QWidget();
+    m_widget->addPage( widget, "Placeholder");
     setCentralWidget( m_widget );
     setupActions();
     setupGUI();
@@ -63,8 +69,6 @@ LogitechApplet::~LogitechApplet()
 {
     KConfigGroup configGroup( config, "WidgetSettings" );
     logitechWidget->saveProperties( configGroup );
-    delete logitechWidget;
-    delete layout;
     delete m_widget;
     delete interface;
     delete trayIcon;
