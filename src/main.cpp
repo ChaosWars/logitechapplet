@@ -22,7 +22,10 @@
 #include <KDE/KDebug>
 #include <KDE/KLocalizedString>
 #include <KDE/KCmdLineArgs>
+#include <KDE/KMainWindow>
 #include <KDE/KUniqueApplication>
+#include <QImage>
+#include "appletsettings.h"
 #include "logitechapplet.h"
 
 static const char description[] = I18N_NOOP( "KDE4 applet for interfacing with the logitechg15 daemon" );
@@ -31,18 +34,19 @@ static const char version[] = "1.0";
 int main( int argc, char **argv )
 {
     KCmdLineOptions options;
-    options.add( "+someoptions", ki18n( "Some option" ) );
+//     options.add( "+someoptions", ki18n( "Some option" ) );
     KAboutData about( "logitechapplet", "logitechapplet", ki18n( "Logitech Applet" ), version, ki18n( description ), KAboutData::License_GPL,
                       ki18n( "Copyright (c) 2008 Lawrence Lee" ), ki18n( "Applet for interfacing with the logitechg15 daemon" ),
                              "http://logitechapplet.googlecode.com", "http://code.google.com/p/logitechapplet/issues/list" );
     about.addAuthor( ki18n( "Lawrence Lee" ), ki18n( "Lead programmer" ), "valheru.ashen.shugar@gmail.com", "http://logitech.googlecode.com" );
+    about.setProgramIconName( ":/pics/logitech.png" );
     KCmdLineArgs::init( argc, argv, &about );
     KCmdLineArgs::addCmdLineOptions( options );
     KCmdLineArgs::addTempFileOption();
     KUniqueApplication::addCmdLineOptions();
 
     if( !KUniqueApplication::start() ){
-        kDebug() << i18n( "Logitech Applet is already running!" ) << endl;
+        kWarning() << i18n( "Logitech Applet is already running!" );
         exit( EXIT_FAILURE );
     }
 
@@ -50,14 +54,5 @@ int main( int argc, char **argv )
     Q_INIT_RESOURCE( logitechapplet );
     app.setQuitOnLastWindowClosed( false );
     LogitechApplet *m = new LogitechApplet();
-
-    if (app.isSessionRestored())
-    {
-        RESTORE(LogitechApplet);
-    }else{
-        m->show();
-    }
-
     return app.exec();
-
 }

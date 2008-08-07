@@ -1,5 +1,5 @@
 [Desktop Entry]
-Categories=Qt;KDE;Settings;X-KDE-Settings-File;
+Categories=Qt;KDE;System;
 Comment=Control Applet for logitechg15
 Encoding=UTF-8
 Exec=logitechapplet

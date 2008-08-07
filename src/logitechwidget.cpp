@@ -18,132 +18,159 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include <KDE/KDebug>
+#include <KDE/KGlobal>
 #include "logitechappletinterface.h"
 #include "logitechwidget.h"
 
 LogitechWidget::LogitechWidget( ComGooglecodeLogitechg15Interface *interface, QWidget *parent )
- : QWidget(parent), m_interface( interface )
+ : QWidget(parent)
 {
+    m_interface = interface;
     setupUi( this );
-    connect ( kcfg_LCDContrastLow, SIGNAL ( toggled ( bool ) ), this, SLOT ( LCDContrastSet() ) );
-    connect ( kcfg_LCDContrastMedium, SIGNAL ( toggled ( bool ) ), this, SLOT ( LCDContrastSet() ) );
-    connect ( kcfg_LCDContrastHigh, SIGNAL ( toggled ( bool ) ), this, SLOT ( LCDContrastSet() ) );
-    connect ( kcfg_LCDBrightnessDark, SIGNAL ( toggled ( bool ) ), this, SLOT ( LCDBrightnessSet() ) );
-    connect ( kcfg_LCDBrightnessMedium, SIGNAL ( toggled ( bool ) ), this, SLOT ( LCDBrightnessSet() ) );
-    connect ( kcfg_LCDBrightnessBright, SIGNAL ( toggled ( bool ) ), this, SLOT ( LCDBrightnessSet() ) );
-    connect ( kcfg_KeyboardBrightnessDark, SIGNAL ( toggled ( bool ) ), this, SLOT ( KeyboardBrightnessSet() ) );
-    connect ( kcfg_KeyboardBrightnessMedium, SIGNAL ( toggled ( bool ) ), this, SLOT ( KeyboardBrightnessSet() ) );
-    connect ( kcfg_KeyboardBrightnessBright, SIGNAL ( toggled ( bool ) ), this, SLOT ( KeyboardBrightnessSet() ) );
-    connect ( kcfg_BlankScreen, SIGNAL ( toggled ( bool ) ), this, SLOT ( blank_screen() ) );
-    connect ( kcfg_ShowLogo, SIGNAL ( toggled ( bool ) ), this, SLOT ( show_logo() ) );
+    connect ( LCDBrightnessDark, SIGNAL ( toggled ( bool ) ), this, SLOT ( LCDBrightnessSet() ) );
+    connect ( LCDBrightnessMedium, SIGNAL ( toggled ( bool ) ), this, SLOT ( LCDBrightnessSet() ) );
+    connect ( LCDBrightnessBright, SIGNAL ( toggled ( bool ) ), this, SLOT ( LCDBrightnessSet() ) );
+    connect ( LCDContrastLow, SIGNAL ( toggled ( bool ) ), this, SLOT ( LCDContrastSet() ) );
+    connect ( LCDContrastMedium, SIGNAL ( toggled ( bool ) ), this, SLOT ( LCDContrastSet() ) );
+    connect ( LCDContrastHigh, SIGNAL ( toggled ( bool ) ), this, SLOT ( LCDContrastSet() ) );
+    connect ( KeyboardBrightnessDark, SIGNAL ( toggled ( bool ) ), this, SLOT ( KeyboardBrightnessSet() ) );
+    connect ( KeyboardBrightnessMedium, SIGNAL ( toggled ( bool ) ), this, SLOT ( KeyboardBrightnessSet() ) );
+    connect ( KeyboardBrightnessBright, SIGNAL ( toggled ( bool ) ), this, SLOT ( KeyboardBrightnessSet() ) );
+    connect ( BlankScreen, SIGNAL ( toggled ( bool ) ), this, SLOT ( blank_screen() ) );
+    connect ( ShowLogo, SIGNAL ( toggled ( bool ) ), this, SLOT ( show_logo() ) );
 }
 
 LogitechWidget::~LogitechWidget()
 {
 }
 
+void LogitechWidget::readProperties( const KConfigGroup &group )
+{
+    LCDBrightnessDark->setChecked( group.readEntry( "LCDBrightnessDark", false ) );
+    LCDBrightnessMedium->setChecked( group.readEntry( "LCDBrightnessMedium", true ) );
+    LCDBrightnessBright->setChecked( group.readEntry( "LCDBrightnessBright", false ) );
+    LCDContrastLow->setChecked( group.readEntry( "LCDContrastLow", false ) );
+    LCDContrastMedium->setChecked( group.readEntry( "LCDContrastMeduim", true ) );
+    LCDContrastHigh->setChecked( group.readEntry( "LCDContrastHigh", false ) );
+    KeyboardBrightnessDark->setChecked( group.readEntry( "KeyboardBrightnessDark", false ) );
+    KeyboardBrightnessMedium->setChecked( group.readEntry( "KeyboardBrightnessMedium", true ) );
+    KeyboardBrightnessBright->setChecked( group.readEntry( "KeyboardBrightnessBright", false ) );
+    BlankScreen->setChecked( group.readEntry( "BlankScreen", false ) );
+    ShowLogo->setChecked( group.readEntry( "ShowLogo", true ) );
+}
+
+void LogitechWidget::saveProperties( KConfigGroup &group )
+{
+    group.writeEntry( "LCDBrightnessDark", LCDBrightnessDark->isChecked() );
+    group.writeEntry( "LCDBrightnessMedium", LCDBrightnessMedium->isChecked() );
+    group.writeEntry( "LCDBrightnessBright", LCDBrightnessBright->isChecked() );
+    group.writeEntry( "LCDContrastLow", LCDContrastLow->isChecked() );
+    group.writeEntry( "LCDContrastMeduim", LCDContrastMedium->isChecked() );
+    group.writeEntry( "LCDContrastHigh", LCDContrastHigh->isChecked() );
+    group.writeEntry( "KeyboardBrightnessDark", KeyboardBrightnessDark->isChecked() );
+    group.writeEntry( "KeyboardBrightnessMedium", KeyboardBrightnessMedium->isChecked() );
+    group.writeEntry( "KeyboardBrightnessBright", KeyboardBrightnessBright->isChecked() );
+    group.writeEntry( "BlankScreen", BlankScreen->isChecked() );
+    group.writeEntry( "ShowLogo", ShowLogo->isChecked() );
+}
+
 void LogitechWidget::KeyboardBrightnessSet()
 {
-    if ( kcfg_KeyboardBrightnessDark->isChecked() )
-
+    if ( KeyboardBrightnessDark->isChecked() )
         m_interface->set_kb_brightness ( 0 );
-    else if ( kcfg_KeyboardBrightnessMedium->isChecked() )
-
+    else if ( KeyboardBrightnessMedium->isChecked() )
         m_interface->set_kb_brightness ( 1 );
-    else if ( kcfg_KeyboardBrightnessBright->isChecked() )
-
+    else if ( KeyboardBrightnessBright->isChecked() )
         m_interface->set_kb_brightness ( 2 );
 }
 
 void LogitechWidget::LCDBrightnessSet()
 {
-    if ( kcfg_LCDBrightnessDark->isChecked() )
-
+    if ( LCDBrightnessDark->isChecked() )
         m_interface->set_lcd_brightness ( 0 );
-    else if ( kcfg_LCDBrightnessMedium->isChecked() )
-
+    else if ( LCDBrightnessMedium->isChecked() )
         m_interface->set_lcd_brightness ( 1 );
-    else if ( kcfg_LCDBrightnessBright->isChecked() )
-
+    else if ( LCDBrightnessBright->isChecked() )
         m_interface->set_lcd_brightness ( 2 );
 }
 
 void LogitechWidget::LCDContrastSet()
 {
-    if ( kcfg_LCDContrastLow->isChecked() )
-
+    if ( LCDContrastLow->isChecked() )
         m_interface->set_lcd_contrast ( 0 );
-    else if ( kcfg_LCDContrastMedium->isChecked() )
-
+    else if ( LCDContrastMedium->isChecked() )
         m_interface->set_lcd_contrast ( 1 );
-    else if ( kcfg_LCDContrastHigh->isChecked() )
-
+    else if ( LCDContrastHigh->isChecked() )
         m_interface->set_lcd_contrast ( 2 );
 }
 
 void LogitechWidget::DaemonSetKeyboardBrightness ( int brightness )
 {
+    kDebug();
     switch ( brightness ) {
         case 0:
-            kcfg_KeyboardBrightnessDark->setChecked ( true );
+            KeyboardBrightnessDark->setChecked ( true );
             break;
         case 1:
-            kcfg_KeyboardBrightnessMedium->setChecked ( true );
+            KeyboardBrightnessMedium->setChecked ( true );
             break;
         case 2:
-            kcfg_KeyboardBrightnessBright->setChecked ( true );
+            KeyboardBrightnessBright->setChecked ( true );
             break;
         default:
-            kcfg_KeyboardBrightnessDark->setChecked ( true );
+            KeyboardBrightnessDark->setChecked ( true );
             break;
     }
 }
 
 void LogitechWidget::DaemonSetLCDBrightness ( int brightness )
 {
+    kDebug();
     switch ( brightness ) {
         case 0:
-            kcfg_LCDBrightnessDark->setChecked ( true );
+            LCDBrightnessDark->setChecked ( true );
             break;
         case 1:
-            kcfg_LCDBrightnessMedium->setChecked ( true );
+            LCDBrightnessMedium->setChecked ( true );
             break;
         case 2:
-            kcfg_LCDBrightnessBright->setChecked ( true );
+            LCDBrightnessBright->setChecked ( true );
             break;
         default:
-            kcfg_LCDBrightnessDark->setChecked ( true );
+            LCDBrightnessDark->setChecked ( true );
             break;
     }
 }
 
 void LogitechWidget::DaemonSetLCDContrast ( int contrast )
 {
+    kDebug();
     switch ( contrast ) {
         case 0:
-            kcfg_LCDContrastLow->setChecked ( true );
+            LCDContrastLow->setChecked ( true );
             break;
         case 1:
-            kcfg_LCDContrastMedium->setChecked ( true );
+            LCDContrastMedium->setChecked ( true );
             break;
         case 2:
-            kcfg_LCDContrastHigh->setChecked ( true );
+            LCDContrastHigh->setChecked ( true );
             break;
         default:
-            kcfg_LCDContrastLow->setChecked ( true );
+            LCDContrastLow->setChecked ( true );
             break;
     }
 }
 
 void LogitechWidget::blank_screen()
 {
-    if ( kcfg_BlankScreen->isChecked() )
+    if ( BlankScreen->isChecked() )
         m_interface->blank_screen();
 }
 
 void LogitechWidget::show_logo()
 {
-    if ( kcfg_ShowLogo->isChecked() )
+    if ( ShowLogo->isChecked() )
         m_interface->show_logo();
 }
 

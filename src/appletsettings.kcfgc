@@ -2,5 +2,5 @@
 File=appletsettings.kcfg
 ClassName=AppletSettings
 Singleton=true
-Mutators=LCDBrightnessDark,LCDBrightnessMedium,LCDBrightnessBright,LCDContrastLow,LCDContrastMedium,LCDContrastHigh,KeyboardBrightnessLow,KeyboardBrightnessMedium,KeyboardBrightnessHigh
+Mutators=startMinimized
 # will create the necessary code for setting those variables
