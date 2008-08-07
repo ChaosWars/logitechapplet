@@ -25,6 +25,9 @@
 #include <KDE/KXmlGuiWindow>
 
 class KAction;
+class KPageView;
+class KPageWidget;
+class KPageWidgetItem;
 class KSystemTrayIcon;
 class QHBoxLayout;
 class QTimerEvent;
@@ -51,7 +54,8 @@ class LogitechApplet : public KXmlGuiWindow
         bool connected_to_daemon;
         KAction *preferences;
         KSharedConfigPtr config;
-        QWidget *m_widget;
+        KPageWidget *m_widget;
+        KPageWidgetItem *logitechWidgetItem;
         QHBoxLayout *layout;
         LogitechWidget *logitechWidget;
         KSystemTrayIcon *trayIcon;
