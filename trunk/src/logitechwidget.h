@@ -45,6 +45,7 @@ class LogitechWidget : public QWidget, public Ui::LogitechWidget
         ~LogitechWidget();
         void readProperties( const KConfigGroup &group );
         void saveProperties( KConfigGroup &group );
+        void sendSettingsToDaemon();
 
     public Q_SLOTS:
         void KeyboardBrightnessSet();

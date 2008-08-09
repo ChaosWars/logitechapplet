@@ -19,12 +19,11 @@
  ***************************************************************************/
 
 #include <KDE/KAboutData>
-#include <KDE/KDebug>
-#include <KDE/KLocalizedString>
 #include <KDE/KCmdLineArgs>
-#include <KDE/KMainWindow>
+#include <KDE/KDebug>
+#include <KDE/KIconLoader>
+#include <KDE/KLocalizedString>
 #include <KDE/KUniqueApplication>
-#include <QImage>
 #include "appletsettings.h"
 #include "logitechapplet.h"
 
@@ -39,7 +38,7 @@ int main( int argc, char **argv )
                       ki18n( "Copyright (c) 2008 Lawrence Lee" ), ki18n( "Applet for interfacing with the logitechg15 daemon" ),
                              "http://logitechapplet.googlecode.com", "http://code.google.com/p/logitechapplet/issues/list" );
     about.addAuthor( ki18n( "Lawrence Lee" ), ki18n( "Lead programmer" ), "valheru.ashen.shugar@gmail.com", "http://logitech.googlecode.com" );
-    about.setProgramIconName( ":/pics/logitech.png" );
+    about.setProgramIconName( "logitech" );
     KCmdLineArgs::init( argc, argv, &about );
     KCmdLineArgs::addCmdLineOptions( options );
     KCmdLineArgs::addTempFileOption();
@@ -51,8 +50,11 @@ int main( int argc, char **argv )
     }
 
     KUniqueApplication app;
-    Q_INIT_RESOURCE( logitechapplet );
+//     Q_INIT_RESOURCE( logitechapplet );
     app.setQuitOnLastWindowClosed( false );
-    LogitechApplet *m = new LogitechApplet();
+    KIconLoader *iconLoader = KIconLoader::global();
+    about.setProgramLogo( QVariant( iconLoader->loadIcon( "logitech", KIconLoader::User ).toImage() ) );
+    LogitechApplet *logitechApplet = new LogitechApplet();
+    AppletSettings::startMinimized() ? logitechApplet->hide() : logitechApplet->show();
     return app.exec();
 }
