@@ -24,6 +24,7 @@
 #include <KDE/KConfigDialog>
 #include <KDE/KDebug>
 #include <KDE/KGlobal>
+#include <KDE/KIconLoader>
 #include <KDE/KLocale>
 #include <KDE/KPageWidget>
 #include <KDE/KPageWidgetItem>
@@ -39,14 +40,14 @@
 LogitechApplet::LogitechApplet ( QWidget *parent )
     : KXmlGuiWindow ( parent ), ok_to_close ( false ), connected_to_daemon ( false )
 {
-    setObjectName( "MainWindow" );
+    KIconLoader *iconLoader = KIconLoader::global();
     interface = new ComGooglecodeLogitechg15Interface ( "com.googlecode.logitechg15", "/com/googlecode/logitechg15", QDBusConnection::systemBus(), this );
     interface->blank_screen();
     m_widget = new KPageWidget( this );
     logitechWidget = new LogitechWidget( interface, m_widget );
     logitechWidgetItem = new KPageWidgetItem( logitechWidget, i18n( "Keyboard Settings" ) );
     logitechWidgetItem->setHeader( i18n( "Keyboard Settings for Logitech G15" ) );
-    logitechWidgetItem->setIcon( KIcon( ":/pics/logitech.png" ) );
+    logitechWidgetItem->setIcon( KIcon( iconLoader->loadIcon( "logitech", KIconLoader::User ) ) );
     m_widget->addPage( logitechWidgetItem );
     QWidget *widget = new QWidget();
     m_widget->addPage( widget, "Placeholder");
@@ -55,14 +56,11 @@ LogitechApplet::LogitechApplet ( QWidget *parent )
     setupGUI();
     setAutoSaveSettings();
     config = KGlobal::config();
-    trayIcon = new KSystemTrayIcon( QIcon( ":/pics/logitech.png" ), this );
+    trayIcon = new KSystemTrayIcon( KIcon( iconLoader->loadIcon( "logitech", KIconLoader::User ) ), this );
     connect( trayIcon, SIGNAL( quitSelected() ), SLOT( exit() ) );
     trayIcon->show();
     readProperties( KConfigGroup( config, "WidgetSettings") );
     startTimer ( 1000 );
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    args->clear();
-    AppletSettings::startMinimized() ? hide() : show();
 }
 
 LogitechApplet::~LogitechApplet()
@@ -74,7 +72,7 @@ LogitechApplet::~LogitechApplet()
     delete trayIcon;
 }
 
-void LogitechApplet::loadSettings( QString settings )
+void LogitechApplet::loadSettings( QString /*settings*/ )
 {
 }
 
@@ -87,8 +85,7 @@ void LogitechApplet::optionsConfigure()
     KConfigDialog *dialog = new KConfigDialog( this, "settings", AppletSettings::self() );
     dialog->setAttribute( Qt::WA_DeleteOnClose );
     QWidget *generalSettingsPage = new QWidget();
-    GeneralSettingsWidget *generalSettingsWidget = new GeneralSettingsWidget( generalSettingsPage );
-    dialog->addPage( generalSettingsPage, i18n( "General" ), "preferences-system-general" );
+    dialog->addPage( new GeneralSettingsWidget( generalSettingsPage ), i18n( "General" ), "preferences-system-general" );
     connect( dialog, SIGNAL( settingsChanged( QString ) ), this, SLOT( loadSettings( QString ) ) );
     dialog->show();
 }
@@ -109,7 +106,6 @@ bool LogitechApplet::queryExit()
 
 void LogitechApplet::readProperties( const KConfigGroup &configGroup )
 {
-    kDebug() << configGroup.name();
     // the 'config' object points to the session managed
     // config file.  this function is automatically called whenever
     // the app is being restored.  read in here whatever you wrote
@@ -118,9 +114,8 @@ void LogitechApplet::readProperties( const KConfigGroup &configGroup )
         logitechWidget->readProperties( configGroup );
 }
 
-void LogitechApplet::saveProperties( KConfigGroup &configGroup )
+void LogitechApplet::saveProperties( KConfigGroup& /*configGroup*/ )
 {
-    kDebug() << configGroup.name();
     // the 'config' object points to the session managed
     // config file.  anything you write here will be available
     // later when this app is restored
@@ -143,11 +138,11 @@ void LogitechApplet::timerEvent( QTimerEvent *event )
 {
     Q_UNUSED ( event );
 
-    if ( interface->isValid() ) {
+    if ( interface->isValid() && !connected_to_daemon ) {
         connected_to_daemon = true;
         m_widget->setEnabled ( true );
-
-    } else {
+        logitechWidget->sendSettingsToDaemon();
+    } else if( !interface->isValid() && connected_to_daemon ){
         connected_to_daemon = false;
         m_widget->setEnabled( false );
     }

@@ -53,9 +53,9 @@ class LogitechApplet : public KXmlGuiWindow
         bool ok_to_close;
         bool connected_to_daemon;
         KAction *preferences;
-        KSharedConfigPtr config;
         KPageWidget *m_widget;
         KPageWidgetItem *logitechWidgetItem;
+        KSharedConfigPtr config;
         QHBoxLayout *layout;
         LogitechWidget *logitechWidget;
         KSystemTrayIcon *trayIcon;

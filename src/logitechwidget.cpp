@@ -78,6 +78,15 @@ void LogitechWidget::saveProperties( KConfigGroup &group )
     group.writeEntry( "ShowLogo", ShowLogo->isChecked() );
 }
 
+void LogitechWidget::sendSettingsToDaemon()
+{
+    KeyboardBrightnessSet();
+    LCDBrightnessSet();
+    LCDContrastSet();
+    blank_screen();
+    show_logo();
+}
+
 void LogitechWidget::KeyboardBrightnessSet()
 {
     if ( KeyboardBrightnessDark->isChecked() )
