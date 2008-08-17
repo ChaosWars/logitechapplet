@@ -21,7 +21,6 @@
 #include <KDE/KAboutData>
 #include <KDE/KCmdLineArgs>
 #include <KDE/KDebug>
-#include <KDE/KIconLoader>
 #include <KDE/KLocalizedString>
 #include <KDE/KUniqueApplication>
 #include "appletsettings.h"
@@ -52,8 +51,6 @@ int main( int argc, char **argv )
     KUniqueApplication app;
 //     Q_INIT_RESOURCE( logitechapplet );
     app.setQuitOnLastWindowClosed( false );
-    KIconLoader *iconLoader = KIconLoader::global();
-    about.setProgramLogo( QVariant( iconLoader->loadIcon( "logitech", KIconLoader::User ).toImage() ) );
     LogitechApplet *logitechApplet = new LogitechApplet();
     AppletSettings::startMinimized() ? logitechApplet->hide() : logitechApplet->show();
     return app.exec();

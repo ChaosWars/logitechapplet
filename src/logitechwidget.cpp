@@ -126,7 +126,7 @@ void LogitechWidget::DaemonSetKeyboardBrightness ( int brightness )
             break;
         case 1:
             if( !KeyboardBrightnessMedium->isChecked() )
-            KeyboardBrightnessMedium->setChecked( true );
+                KeyboardBrightnessMedium->setChecked( true );
             break;
         case 2:
             if( !KeyboardBrightnessBright->isChecked() )
