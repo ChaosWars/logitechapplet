@@ -41,7 +41,6 @@ LogitechApplet::LogitechApplet ( QWidget *parent )
     : KXmlGuiWindow ( parent ), ok_to_close ( false ), connected_to_daemon ( false )
 {
     KIconLoader *iconLoader = KIconLoader::global();
-    setWindowIcon( KIcon( iconLoader->loadIcon( "logitech", KIconLoader::User ) ) );
     interface = new ComGooglecodeLogitechg15Interface ( "com.googlecode.logitechg15", "/com/googlecode/logitechg15", QDBusConnection::systemBus(), this );
     interface->blank_screen();
     m_widget = new KPageWidget( this );
@@ -57,7 +56,7 @@ LogitechApplet::LogitechApplet ( QWidget *parent )
     setupGUI();
     setAutoSaveSettings();
     config = KGlobal::config();
-    trayIcon = new KSystemTrayIcon( KIcon( iconLoader->loadIcon( "logitech", KIconLoader::User ) ), this );
+    trayIcon = new KSystemTrayIcon( KIcon( "logitech" ), this );
     connect( trayIcon, SIGNAL( quitSelected() ), SLOT( exit() ) );
     trayIcon->show();
     readProperties( KConfigGroup( config, "WidgetSettings") );
