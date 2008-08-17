@@ -18,56 +18,38 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef _LOGITECHAPPLET_H_
-#define _LOGITECHAPPLET_H_
+#include <KDE/KCmdLineArgs>
+#include "application.h"
+#include "logitechapplet.h"
 
-#include <KDE/KConfigGroup>
-#include <KDE/KXmlGuiWindow>
+LogitechApplet *Application::mainWindow = 0;
 
-class KAction;
-class KPageView;
-class KPageWidget;
-class KPageWidgetItem;
-class KSystemTrayIcon;
-class QHBoxLayout;
-class QTimerEvent;
-class ComGooglecodeLogitechg15Interface;
-class LogitechWidget;
-
-class LogitechApplet : public KXmlGuiWindow
+Application::Application()
+ : KUniqueApplication()
 {
-    Q_OBJECT
+    setQuitOnLastWindowClosed( false );
+}
 
-    public:
-        LogitechApplet( QWidget *parent = 0 );
-        ~LogitechApplet();
+Application::~Application()
+{
+}
 
-    protected:
-        virtual void readProperties( const KConfigGroup &configGroup );
-        virtual void saveProperties( KConfigGroup &configGroup );
-        virtual bool queryClose();
-        virtual bool queryExit();
-        virtual void timerEvent( QTimerEvent *event );
+int Application::newInstance()
+{
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+    LogitechApplet *applet = 0;
 
-    private:
-        bool ok_to_close;
-        bool connected_to_daemon;
-        KAction *preferences;
-        KPageWidget *m_widget;
-        KPageWidgetItem *logitechWidgetItem;
-        KSharedConfigPtr config;
-        QHBoxLayout *layout;
-        LogitechWidget *logitechWidget;
-        KSystemTrayIcon *trayIcon;
-        ComGooglecodeLogitechg15Interface *interface;
-        void checkDirectories();
-        void setEnabled ( bool enabled );
-        void setupActions();
+    if( !mainWindow ){
+        applet = new LogitechApplet();
+        setTopWidget( applet );
+        mainWindow = applet;
+    }else{
+        applet = mainWindow;
+        mainWindow->show();
+    }
 
-    private Q_SLOTS:
-        void exit();
-        void loadSettings( QString settings );
-        void optionsConfigure();
-};
+    args->clear();
+    return 0;
+}
 
-#endif //   _LOGITECHAPPLET_H_
+#include "application.moc"

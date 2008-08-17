@@ -41,6 +41,7 @@ LogitechApplet::LogitechApplet ( QWidget *parent )
     : KXmlGuiWindow ( parent ), ok_to_close ( false ), connected_to_daemon ( false )
 {
     KIconLoader *iconLoader = KIconLoader::global();
+    setWindowIcon( KIcon( iconLoader->loadIcon( "logitech", KIconLoader::User ) ) );
     interface = new ComGooglecodeLogitechg15Interface ( "com.googlecode.logitechg15", "/com/googlecode/logitechg15", QDBusConnection::systemBus(), this );
     interface->blank_screen();
     m_widget = new KPageWidget( this );
@@ -70,6 +71,10 @@ LogitechApplet::~LogitechApplet()
     delete m_widget;
     delete interface;
     delete trayIcon;
+}
+
+void LogitechApplet::checkDirectories()
+{
 }
 
 void LogitechApplet::loadSettings( QString /*settings*/ )

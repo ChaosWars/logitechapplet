@@ -1,0 +1,1 @@
+INSTALL( FILES logitech.png DESTINATION ${DATA_INSTALL_DIR}/logitechapplet/pics )

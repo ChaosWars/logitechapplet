@@ -17,57 +17,27 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#ifndef APPLICATION_H
+#define APPLICATION_H
 
-#ifndef _LOGITECHAPPLET_H_
-#define _LOGITECHAPPLET_H_
+#include <KDE/KUniqueApplication>
 
-#include <KDE/KConfigGroup>
-#include <KDE/KXmlGuiWindow>
+class LogitechApplet;
 
-class KAction;
-class KPageView;
-class KPageWidget;
-class KPageWidgetItem;
-class KSystemTrayIcon;
-class QHBoxLayout;
-class QTimerEvent;
-class ComGooglecodeLogitechg15Interface;
-class LogitechWidget;
-
-class LogitechApplet : public KXmlGuiWindow
+/**
+	@author Lawrence Lee <valheru.ashen.shugar@gmail.com>
+*/
+class Application : public KUniqueApplication
 {
     Q_OBJECT
 
     public:
-        LogitechApplet( QWidget *parent = 0 );
-        ~LogitechApplet();
-
-    protected:
-        virtual void readProperties( const KConfigGroup &configGroup );
-        virtual void saveProperties( KConfigGroup &configGroup );
-        virtual bool queryClose();
-        virtual bool queryExit();
-        virtual void timerEvent( QTimerEvent *event );
+        Application();
+        ~Application();
+        virtual int newInstance();
 
     private:
-        bool ok_to_close;
-        bool connected_to_daemon;
-        KAction *preferences;
-        KPageWidget *m_widget;
-        KPageWidgetItem *logitechWidgetItem;
-        KSharedConfigPtr config;
-        QHBoxLayout *layout;
-        LogitechWidget *logitechWidget;
-        KSystemTrayIcon *trayIcon;
-        ComGooglecodeLogitechg15Interface *interface;
-        void checkDirectories();
-        void setEnabled ( bool enabled );
-        void setupActions();
-
-    private Q_SLOTS:
-        void exit();
-        void loadSettings( QString settings );
-        void optionsConfigure();
+        static LogitechApplet *mainWindow;
 };
 
-#endif //   _LOGITECHAPPLET_H_
+#endif
