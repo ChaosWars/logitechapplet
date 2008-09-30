@@ -1,0 +1,67 @@
+<ui version="4.0" >
+ <class>LogitechG15PluginWidget</class>
+ <widget class="QWidget" name="LogitechG15PluginWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>426</width>
+    <height>453</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>LogitechG15 Plugin Widget</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2" >
+   <item>
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>Plugins</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout" >
+      <item>
+       <widget class="QTreeWidget" name="pluginTree" >
+        <property name="minimumSize" >
+         <size>
+          <width>400</width>
+          <height>400</height>
+         </size>
+        </property>
+        <property name="editTriggers" >
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="showDropIndicator" stdset="0" >
+         <bool>false</bool>
+        </property>
+        <property name="rootIsDecorated" >
+         <bool>false</bool>
+        </property>
+        <property name="uniformRowHeights" >
+         <bool>true</bool>
+        </property>
+        <property name="itemsExpandable" >
+         <bool>false</bool>
+        </property>
+        <property name="expandsOnDoubleClick" >
+         <bool>false</bool>
+        </property>
+        <column>
+         <property name="text" >
+          <string>Enabled</string>
+         </property>
+        </column>
+        <column>
+         <property name="text" >
+          <string>Plugin</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
