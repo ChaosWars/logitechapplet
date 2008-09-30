@@ -33,6 +33,7 @@ class QHBoxLayout;
 class QTimerEvent;
 class ComGooglecodeLogitechg15Interface;
 class LogitechWidget;
+class LogitechG15PluginWidget;
 
 class LogitechApplet : public KXmlGuiWindow
 {
@@ -54,10 +55,11 @@ class LogitechApplet : public KXmlGuiWindow
         bool connected_to_daemon;
         KAction *preferences;
         KPageWidget *m_widget;
-        KPageWidgetItem *logitechWidgetItem;
+        KPageWidgetItem *logitechWidgetItem, *pluginWidgetItem;
         KSharedConfigPtr config;
         QHBoxLayout *layout;
         LogitechWidget *logitechWidget;
+        LogitechG15PluginWidget *pluginWidget;
         KSystemTrayIcon *trayIcon;
         ComGooglecodeLogitechg15Interface *interface;
         void checkDirectories();

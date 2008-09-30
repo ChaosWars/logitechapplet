@@ -36,6 +36,7 @@
 #include "logitechappletinterface.h"
 #include "logitechapplet.h"
 #include "logitechwidget.h"
+#include "logitechg15pluginwidget.h"
 
 LogitechApplet::LogitechApplet ( QWidget *parent )
     : KXmlGuiWindow ( parent ), ok_to_close ( false ), connected_to_daemon ( false )
@@ -49,8 +50,10 @@ LogitechApplet::LogitechApplet ( QWidget *parent )
     logitechWidgetItem->setHeader( i18n( "Keyboard Settings for Logitech G15" ) );
     logitechWidgetItem->setIcon( KIcon( iconLoader->loadIcon( "logitech", KIconLoader::User ) ) );
     m_widget->addPage( logitechWidgetItem );
-    QWidget *widget = new QWidget();
-    m_widget->addPage( widget, "Placeholder");
+    pluginWidget = new LogitechG15PluginWidget( m_widget );
+    pluginWidgetItem = new KPageWidgetItem( pluginWidget, i18n( "Plugins" ) );
+    pluginWidgetItem->setIcon( KIcon( "preferences-plugin" ) );
+    m_widget->addPage( pluginWidgetItem );
     setCentralWidget( m_widget );
     setupActions();
     setupGUI();
