@@ -1,5 +1,5 @@
 PROJECT(logitechapplet)
-CMAKE_MINIMUM_REQUIRED(VERSION 2.4)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 FIND_PACKAGE( KDE4 REQUIRED )
 #if you don't want the full compiler output, remove the following line
 SET(CMAKE_VERBOSE_MAKEFILE OFF)
