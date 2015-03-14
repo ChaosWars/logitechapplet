@@ -1,0 +1,1 @@
+Frontend written in Qt4 for interfacing via DBUS with logitechdaemon. Later it will be updated for KDE4 integration.
